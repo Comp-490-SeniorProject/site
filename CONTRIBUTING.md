@@ -7,7 +7,6 @@ As prerequisites, Python 3.9 and [poetry] are required. Once those are installed
 ```bash
 poetry install
 ```
-```
 
 Finally, install the pre-commit hook to ensure the linters will run upon a commit:
 
