@@ -14,6 +14,12 @@ Finally, install the pre-commit hook to ensure the linters will run upon a commi
 poetry run pre-commit install
 ```
 
+Create a `.env` file in the project's root directory and write the following to it:
+
+```
+DEBUG=true
+```
+
 ## Running the Website
 
 ```bash
