@@ -30,6 +30,15 @@ SECRET_KEY = "django-insecure-076elib(x7q6*qmjc8o7hyiu8_bp8zhphhc#vv)ljpg6h&s)c0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
+if DEBUG:
+    ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+else:
+    ALLOWED_HOSTS = [
+        gethostname(),
+        gethostbyname(gethostname()),
+    ]
+
+
 # Application definition
 
 INSTALLED_APPS = [
