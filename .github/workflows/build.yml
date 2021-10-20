@@ -34,6 +34,6 @@ jobs:
                   context: .
                   file: ./Dockerfile
                   push: true
-                  cache-from: type=registry,ref=ghcr.io/Comp-490-SeniorProject/site:latest
+                  cache-from: type=registry,ref=ghcr.io/comp-490-seniorproject/site:latest
                   cache-to: type=inline
-                  tags: ghcr.io/Comp-490-SeniorProject/site:latest
+                  tags: ghcr.io/comp-490-seniorproject/site:latest
