@@ -1,3 +1,29 @@
+## General
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# dotenv
+.env
+
+## Python
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -43,31 +69,12 @@ coverage.xml
 # pyenv
 .python-version
 
-# dotenv
-.env
-
 # virtualenv
 .venv
 venv/
 ENV/
 
-# Flask stuff:
-instance/
-.webassets-cache
-
-# PyCharm
-.idea/
-
-# VSCode
-.vscode/
-
-# Mac OS .DS_Store, which is a file that stores custom attributes of its containing folder
-.DS_Store
-
-# JavaScript
-node_modules/
-*.tsbuildinfo
-*.d.ts
-
-# Database
+# Django
+/static_root
+/web/frontend/static
 *.sqlite3
