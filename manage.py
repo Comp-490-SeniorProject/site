@@ -22,6 +22,12 @@ def run_dev_server():
     from django.conf import settings
 
     node = shutil.which("node")
+    if node is None:
+        raise FileNotFoundError(
+            "Cannot find the Node.js executable. "
+            "Are you sure it's installed and available on your PATH environment variable?"
+        )
+
     angular_root = settings.BASE_DIR / "web" / "frontend" / "angular"
     ng = angular_root / "node_modules" / "@angular" / "cli" / "bin" / "ng"
 
