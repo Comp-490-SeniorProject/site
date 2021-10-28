@@ -28,10 +28,18 @@ def run_dev_server():
             "Are you sure it's installed and available on your PATH environment variable?"
         )
 
-    angular_root = settings.BASE_DIR / "web" / "frontend" / "angular"
+    angular_root = (settings.BASE_DIR / "web" / "frontend" / "angular").resolve(strict=True)
     ng = angular_root / "node_modules" / "@angular" / "cli" / "bin" / "ng"
 
-    process = subprocess.Popen(
+    try:
+        ng.resolve(strict=True)
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            "Cannot find Angular CLI. Make sure you've installed the Node modules for Angular "
+            f"by running 'npm ci' while in {angular_root}"
+        )
+
+    node_process = subprocess.Popen(
         [node, str(ng), "build", "-c", "development", "--watch"],
         cwd=angular_root,
     )
@@ -42,12 +50,12 @@ def run_dev_server():
         call_command("runserver", "0.0.0.0:8000")
     except Exception:
         # If Django fails, terminate Angular's build too.
-        process.terminate()
+        node_process.terminate()
         raise
     else:
         # Wait for the process so that signals are forwarded if this wait is interrupted.
         # In practice, this may be unreachable since Django won't stop unless an exception happens.
-        process.wait()
+        node_process.wait()
 
 
 def main():
