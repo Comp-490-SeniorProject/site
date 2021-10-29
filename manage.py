@@ -76,7 +76,21 @@ def run_server():
 
     print("Starting server.")
 
-    run_dev_server()
+    if settings.DEBUG:
+        run_dev_server()
+    else:
+        import gunicorn.app.wsgiapp
+
+        # Patch the arguments for gunicorn.
+        sys.argv = [
+            "gunicorn",
+            "web.wsgi:application",
+            "-b",
+            "0.0.0.0:8000",
+            "--preload",
+        ]
+
+        gunicorn.app.wsgiapp.run()
 
 
 def main():
