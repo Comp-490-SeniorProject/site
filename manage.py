@@ -27,7 +27,7 @@ def prepare_server():
 
     if settings.DEBUG:
         print("Collecting static files.")
-        call_command("collectstatic", interactive=False, clear=True)
+        call_command("collectstatic", interactive=False, clear=True, verbosity=0)
 
 
 def run_ng_build():
