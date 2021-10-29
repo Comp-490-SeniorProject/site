@@ -5,8 +5,12 @@ import shutil
 import subprocess
 import sys
 
+# Must be set before settings are imported.
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web.settings")
+
 try:
     import django
+    from django.conf import settings
     from django.core.management import call_command, execute_from_command_line
 except ImportError as exc:
     raise ImportError(
@@ -16,11 +20,20 @@ except ImportError as exc:
     ) from exc
 
 
+def prepare_server():
+    """Apply migrations and collect static files."""
+    django.setup()
+
+    print("Applying migrations.")
+    call_command("migrate")
+
+    if settings.DEBUG:
+        print("Collecting static files.")
+        call_command("collectstatic", interactive=False, clear=True)
+
+
 def run_dev_server():
     """Simultaneously run the Django development server and ng build with --watch."""
-    # Must be imported only after DJANGO_SETTINGS_MODULE is set.
-    from django.conf import settings
-
     node = shutil.which("node")
     if node is None:
         raise FileNotFoundError(
@@ -46,7 +59,6 @@ def run_dev_server():
 
     try:
         # TODO: terminate runserver if ng build crashes?
-        django.setup()
         call_command("runserver", "0.0.0.0:8000")
     except Exception:
         # If Django fails, terminate Angular's build too.
@@ -58,12 +70,19 @@ def run_dev_server():
         node_process.wait()
 
 
+def run_server():
+    """Prepare and run the web server."""
+    prepare_server()
+
+    print("Starting server.")
+
+    run_dev_server()
+
+
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web.settings")
-
     if len(sys.argv) > 1 and sys.argv[1] == "run":
-        run_dev_server()
+        run_server()
     else:
         execute_from_command_line(sys.argv)
 
