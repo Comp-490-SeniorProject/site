@@ -31,6 +31,10 @@ SECRET_KEY = "django-insecure-076elib(x7q6*qmjc8o7hyiu8_bp8zhphhc#vv)ljpg6h&s)c0
 DEBUG = env("DEBUG")
 
 if DEBUG:
+    import mimetypes
+
+    mimetypes.add_type("application/javascript", ".js", True)
+
     ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 else:
     ALLOWED_HOSTS = [
@@ -41,7 +45,7 @@ else:
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -49,6 +53,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+THIRD_PARTY_APPS = [
+    "webpack_loader",
+]
+
+LOCAL_APPS = [
+    "web.frontend",
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -130,6 +144,16 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = env("STATIC_ROOT", default="/web/staticfiles")
+
+WEBPACK_LOADER = {
+    "DEFAULT": {
+        "BUNDLE_DIR_NAME": "",
+        "CACHE": not DEBUG,
+        "STATS_FILE": BASE_DIR / "web" / "frontend" / "angular" / "webpack-stats.json",
+        "POLL_INTERVAL": 0.1,
+        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
