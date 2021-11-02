@@ -152,7 +152,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WEBPACK_LOADER = {
     "DEFAULT": {
         "BUNDLE_DIR_NAME": "",
-        "CACHE": DEBUG,
+        "CACHE": not DEBUG,
         "STATS_FILE": BASE_DIR / "web" / "frontend" / "angular" / "webpack-stats.json",
         "POLL_INTERVAL": 0.1,
         "IGNORE": [r".+\.hot-update.js", r".+\.map"],
