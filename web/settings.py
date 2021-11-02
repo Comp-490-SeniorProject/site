@@ -80,8 +80,6 @@ ROOT_URLCONF = "web.urls"
 
 TEMPLATES = [
     {
-        {% load static %}
-        <img src="{% static 'my_app/example.jpg' %}" alt="My image">
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
         "APP_DIRS": True,
@@ -147,7 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = env("STATIC_ROOT", default="/web/staticfiles")
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
