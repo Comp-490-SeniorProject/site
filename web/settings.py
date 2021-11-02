@@ -80,6 +80,8 @@ ROOT_URLCONF = "web.urls"
 
 TEMPLATES = [
     {
+        {% load static %}
+        <img src="{% static 'my_app/example.jpg' %}" alt="My image">
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
         "APP_DIRS": True,
