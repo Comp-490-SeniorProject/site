@@ -31,4 +31,6 @@ RUN poetry install --no-dev
 COPY --from=angular /frontend/ ./frontend/
 COPY . .
 
-RUN python manage.py collectstatic --noinput --clear
+# Set dummy value for env var so collectstatic can load settings.py.
+RUN DATABASE_URL=postgres://localhost \
+    python manage.py collectstatic --noinput --clear
