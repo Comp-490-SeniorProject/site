@@ -16,6 +16,7 @@ repos:
           - eslint@8.2.0
           - eslint-config-standard@16.0.3
           - eslint-config-prettier@8.3.0
+          - eslint-plugin-import@2.25.3
           - "@typescript-eslint/parser@5.4.0"
           - "@typescript-eslint/eslint-plugin@5.4.0"
   - repo: https://github.com/pre-commit/mirrors-prettier
