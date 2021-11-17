@@ -1,20 +1,20 @@
 version: "3.7"
 services:
-    web:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - "127.0.0.1:8000:8000"
-        tty: true
-        init: true
-        environment:
-            DEBUG: 1
-            STATIC_ROOT: /var/www/static
-        env_file: .env
-        volumes:
-            - .:/web:ro
-            - staticfiles:/var/www/static
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8000:8000"
+    tty: true
+    init: true
+    environment:
+      DEBUG: 1
+      STATIC_ROOT: /var/www/static
+    env_file: .env
+    volumes:
+      - .:/web:ro
+      - staticfiles:/var/www/static
 
 volumes:
   staticfiles:
