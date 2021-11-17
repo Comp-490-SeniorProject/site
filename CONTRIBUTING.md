@@ -40,7 +40,7 @@ This will host the server on http://127.0.0.1:8000 with Django in debug mode. It
 
 ### Alternative with Docker
 
-Use Docker Compose to bring up the container. Note that with this method, installing Python and JS dependencies is not required, since it's all already done within the container.
+Use Docker Compose (at least version `1.27.0`) to bring up the container. Note that with this method, installing Python and JS dependencies is not required, since it's all already done within the container.
 
 ```bash
 docker-compose up

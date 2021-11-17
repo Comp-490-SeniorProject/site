@@ -5,8 +5,12 @@ import shutil
 import subprocess
 import sys
 
+# Must be set before settings are imported.
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web.settings")
+
 try:
     import django
+    from django.conf import settings
     from django.core.management import call_command, execute_from_command_line
 except ImportError as exc:
     raise ImportError(
@@ -16,10 +20,19 @@ except ImportError as exc:
     ) from exc
 
 
-def run_dev_server():
-    """Simultaneously run the Django development server and ng build with --watch."""
-    # Must be imported only after DJANGO_SETTINGS_MODULE is set.
-    from django.conf import settings
+def prepare_server():
+    """Apply migrations and collect static files."""
+    print("Applying migrations.")
+    call_command("migrate")
+
+    if settings.DEBUG:
+        print("Collecting static files.")
+        call_command("collectstatic", interactive=False, clear=True, verbosity=0)
+
+
+def run_ng_build():
+    """Run the Angular build in watch mode and return its process handle."""
+    print("Starting Angular build in watch mode.")
 
     node = shutil.which("node")
     if node is None:
@@ -39,31 +52,69 @@ def run_dev_server():
             f"by running 'npm ci' while in {angular_root}"
         )
 
-    node_process = subprocess.Popen(
+    return subprocess.Popen(
         [node, str(ng), "build", "-c", "development", "--watch"],
         cwd=angular_root,
     )
 
+
+def run_dev_server():
+    """Simultaneously run the Django development server and ng build with --watch."""
+    # Avoid spawning a new node node process every time Django reloads due to a file change.
+    if os.environ.get("RUN_MAIN") != "true":
+        node_process = run_ng_build()
+    else:
+        node_process = None
+
     try:
         # TODO: terminate runserver if ng build crashes?
-        django.setup()
         call_command("runserver", "0.0.0.0:8000")
     except Exception:
         # If Django fails, terminate Angular's build too.
-        node_process.terminate()
+        if node_process:
+            node_process.terminate()
         raise
     else:
         # Wait for the process so that signals are forwarded if this wait is interrupted.
         # In practice, this may be unreachable since Django won't stop unless an exception happens.
-        node_process.wait()
+        if node_process:
+            node_process.wait()
+
+
+def run_server():
+    """Prepare and run the web server."""
+    django.setup()  # This must only be called once.
+
+    # `RUN_MAIN` is set to None the first time `runserver` is called. When the `use_reloader` option
+    # is set (it is set by default), `RUN_MAIN` is set to "true" upon a reload after a code change.
+    # To avoid preparing twice at the start, only prepare when in the reloader. Since `runserver`
+    # is only using during debug mode, the `RUN_MAIN` check only needs to happen in debug mode.
+    if not settings.DEBUG or os.environ.get("RUN_MAIN") == "true":
+        prepare_server()
+
+    print("Starting server.")
+
+    if settings.DEBUG:
+        run_dev_server()
+    else:
+        import gunicorn.app.wsgiapp
+
+        # Patch the arguments for gunicorn.
+        sys.argv = [
+            "gunicorn",
+            "web.wsgi:application",
+            "-b",
+            "0.0.0.0:8000",
+            "--preload",
+        ]
+
+        gunicorn.app.wsgiapp.run()
 
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web.settings")
-
     if len(sys.argv) > 1 and sys.argv[1] == "run":
-        run_dev_server()
+        run_server()
     else:
         execute_from_command_line(sys.argv)
 
