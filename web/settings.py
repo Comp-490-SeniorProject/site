@@ -78,6 +78,12 @@ MIDDLEWARE = [
     "web.middleware.set_secure_headers",
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ]
+}
+
 ROOT_URLCONF = "web.urls"
 
 TEMPLATES = [
