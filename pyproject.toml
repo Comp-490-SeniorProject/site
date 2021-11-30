@@ -11,10 +11,12 @@ django-environ = "~0.7.0"
 django-webpack-loader = "~1.4"
 djangorestframework = "~3.12.4"
 gunicorn = "~20.1"
+json-logic = {git = "https://github.com/nadirizr/json-logic-py", rev = "5fda912"}
 psycopg2-binary = "~2.9.1"
 python = "~3.9"
 secure = "~0.3.0"
 whitenoise = "~5.3"
+json-logic = {git = "https://github.com/nadirizr/json-logic-py", rev = "5fda912"}
 
 [tool.poetry.dev-dependencies]
 black = "=21.9b0"
