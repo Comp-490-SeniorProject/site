@@ -14,6 +14,7 @@ from pathlib import Path
 from socket import gethostbyname, gethostname
 
 import environ
+import orjson
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -81,7 +82,12 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
-    ]
+    ],
+    "DEFAULT_PARSER_CLASSES": ("drf_orjson_renderer.parsers.ORJSONParser",),
+    "ORJSON_RENDERER_OPTIONS": (
+        orjson.OPT_NON_STR_KEYS,
+        orjson.OPT_STRICT_INTEGER,
+    ),
 }
 
 ROOT_URLCONF = "web.urls"

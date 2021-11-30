@@ -1,6 +1,8 @@
+import orjson
 from django import forms
 from django.contrib.postgres.fields import ArrayField
 from django.core import exceptions
+from django.db import models
 
 __all__ = ("ChoiceArrayField",)
 
@@ -45,3 +47,10 @@ class ChoiceArrayField(ArrayField):
 
         if not self.blank and value in self.empty_values:
             raise exceptions.ValidationError(self.error_messages["blank"], code="blank")
+
+
+class OrjsonField(models.JSONField):
+    """A JSONField which uses orjson for encoding/decoding."""
+
+    def __init__(self, verbose_name=None, name=None, **kwargs):
+        super().__init__(verbose_name, name, encoder=orjson.dumps, decoder=orjson.loads, **kwargs)
