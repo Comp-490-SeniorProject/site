@@ -23,7 +23,7 @@ class NotificationSettings(models.Model):
     test = models.ForeignKey(
         Test, on_delete=models.CASCADE, help_text="The test for which to notify."
     )
-    condition = models.JSONField(
+    condition = fields.OrjsonField(
         validators=(validate_json_logic,),
         help_text="A JsonLogic-encoded expression to evaluate to determine whether to notify.",
     )
