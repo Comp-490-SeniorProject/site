@@ -20,6 +20,9 @@ WORKDIR /web
 ENTRYPOINT ["gunicorn"]
 CMD ["web.wsgi:application", "-b", "0.0.0.0:8000", "--preload"]
 
+# Install git for VCS dependencies in poetry.
+RUN apt-get -y update && apt-get install -y git
+
 # Install dependencies.
 RUN pip install -U poetry
 COPY poetry.lock pyproject.toml ./
