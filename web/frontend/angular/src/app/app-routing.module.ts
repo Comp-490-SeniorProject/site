@@ -9,7 +9,7 @@ import { ProductComponent } from './product/product.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 
 import { AdminComponent } from './admin/admin.component';
-import { AuthComponent } from './auth/auth.component';
+//import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth.guard';
 
 
@@ -27,8 +27,8 @@ const routes: Routes = [
   component: ProductComponent},
   { path: 'app-home',
   component: HomeComponent},
-  { path: 'app-auth',
-  component: AuthComponent},
+  //{ path: 'app-auth',
+  //component: AuthComponent},
   { path: 'app-admin',
   component: AdminComponent, canActivate: [AuthGuard]},
   { path: 'app-sign-in',
