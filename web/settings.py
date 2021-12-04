@@ -136,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "web.api.User"
+AUTH_USER_MODEL = "api.User"
 
 
 # Internationalization

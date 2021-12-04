@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import Test
+from .test import Test
 
 
 class TestStatus(models.TextChoices):

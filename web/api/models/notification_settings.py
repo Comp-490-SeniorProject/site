@@ -4,7 +4,7 @@ from json_logic import jsonLogic
 
 from web.utils import fields
 
-from . import Test
+from .test import Test
 
 
 def validate_json_logic(value):

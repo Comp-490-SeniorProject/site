@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from . import Device
+from .device import Device
 
 
 class Test(models.Model):
