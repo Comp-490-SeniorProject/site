@@ -53,4 +53,6 @@ class OrjsonField(models.JSONField):
     """A JSONField which uses orjson for encoding/decoding."""
 
     def __init__(self, verbose_name=None, name=None, **kwargs):
-        super().__init__(verbose_name, name, encoder=orjson.dumps, decoder=orjson.loads, **kwargs)
+        kwargs["encoder"] = orjson.dumps
+        kwargs["decoder"] = orjson.loads
+        super().__init__(verbose_name, name, **kwargs)
