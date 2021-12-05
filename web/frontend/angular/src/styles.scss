@@ -1,18 +1,13 @@
 //You can add global styles to this file, and also import other style files
-@import  url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-html {
-    background-image: radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% );
-}
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
+/*
+// currently there is no nav-height style applied in any scss file, so this has no effect
 body {
     padding-top: var(--nav-height);
-    min-height: 100vh;
 }
+
+// navbar replaced with bootstrap in main-header component
 .navbar {
     position: fixed;
     top: 0;
@@ -22,9 +17,12 @@ body {
     z-index: 9999;
     background: black;
     width: 100%;
-}header {
+}
+
+header {
     margin-bottom: 50px;
 }
+
 .navbar a{
 
     display: block;
@@ -33,12 +31,8 @@ body {
     background: black;
 
   }
+
 a {
     text-decoration: none;
 }
-button{
-    background: rgb(1, 29, 51);
-    border-color: transparent;
-    color: #fff;
-    cursor: pointer;
-}
+*/
