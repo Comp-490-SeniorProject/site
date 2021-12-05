@@ -32,6 +32,8 @@ jobs:
         with:
           python-version: "3.9"
 
+          # Use a more recent version to get npm version 7 or greater
+          # Version 7 installs peer dependencies
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
