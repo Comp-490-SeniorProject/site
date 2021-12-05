@@ -78,7 +78,3 @@ ENV/
 /static_root
 /web/frontend/static
 *.sqlite3
-
-# Node Modules
-node_modules/
-*.env
