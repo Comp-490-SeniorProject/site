@@ -75,7 +75,7 @@ const appRoutes: Routes = [
     ]
   },
 
-  // Dashboard layout pages: Summary, Parameters, Run Tests, Schedule, Notifications
+  // Dashboard layout pages: Summary, Parameters, Data Log, Run Tests, Schedule, Notifications
   {
     path: '',
     component: DashboardLayoutComponent,

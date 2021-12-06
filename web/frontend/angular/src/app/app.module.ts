@@ -37,6 +37,7 @@ import { routing } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DataLogComponent } from './dashboard-pages/parameters/data-log/data-log.component';
 
+import 'bootstrap';
 
 @NgModule({
 

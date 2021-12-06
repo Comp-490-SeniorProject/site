@@ -1,8 +1,12 @@
-<!--<p>devices-layout works!</p>-->
-
 <app-dashboard-header></app-dashboard-header>
-<app-devices-sidebar></app-devices-sidebar>
-<div class="devices-body">
-    <router-outlet></router-outlet>
+<div class="container-fluid">
+    <div class="row">
+        <app-devices-sidebar></app-devices-sidebar>
+        <div class="devices-body col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
 </div>
 <app-global-footer></app-global-footer>
