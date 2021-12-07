@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
@@ -33,38 +34,34 @@ import { SignInComponent } from './main-pages/sign-in/sign-in.component';
 
 import { AccountSettingsComponent } from './settings-pages/account-settings/account-settings.component';
 
-import { routing } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DataLogComponent } from './dashboard-pages/parameters/data-log/data-log.component';
 
 import 'bootstrap';
 
 @NgModule({
-
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    routing
-  ],
-
   declarations: [
     AppComponent, DashboardLayoutComponent, DevicesLayoutComponent, MainLayoutComponent, SettingsLayoutComponent,
-
     DashboardHeaderComponent, DashboardSidebarComponent, DevicesSidebarComponent, GlobalFooterComponent,
     MainHeaderComponent, SettingsSidebarComponent,
-
     NotificationsComponent, ParametersComponent, RuntestsComponent, ScheduleComponent, SummaryComponent,
-
     DeviceOverviewComponent, ManageDevicesComponent,
-
     AboutComponent, AdminComponent, HomeComponent, ProductComponent, RegisterComponent, SignInComponent,
-
     AccountSettingsComponent,
     DataLogComponent,
     PageNotFoundComponent
-
   ],
+
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+
+  providers: [],
+
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

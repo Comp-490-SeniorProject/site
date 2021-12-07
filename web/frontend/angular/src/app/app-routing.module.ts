@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
@@ -26,7 +27,7 @@ import { AccountSettingsComponent } from './settings-pages/account-settings/acco
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-const appRoutes: Routes = [
+const routes: Routes = [
 
   // Main layout pages: Home, About, Product, Sign In, Register, Admin
   // "Page Not Found" page also uses this layout with the same header and footer.
@@ -121,4 +122,8 @@ const appRoutes: Routes = [
 
 ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
