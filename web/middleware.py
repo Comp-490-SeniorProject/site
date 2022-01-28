@@ -13,7 +13,7 @@ csp_policy = (
     .style_src("'self'")
     .img_src("'self'")
 )
-secure_headers = secure.Secure(csp=csp_policy)
+secure_headers = secure.Secure(csp=csp_policy, permissions=secure.PermissionsPolicy())
 
 
 def set_secure_headers(get_response):
