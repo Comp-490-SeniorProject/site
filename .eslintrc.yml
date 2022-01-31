@@ -1,14 +1,36 @@
+root: true
 env:
   browser: true
   es2021: true
-extends:
-  - "standard"
-  - "prettier"
-  - "plugin:@typescript-eslint/recommended"
-parser: "@typescript-eslint/parser"
-parserOptions:
-  ecmaVersion: 13
-  sourceType: module
-plugins:
-  - "@typescript-eslint"
-rules: { "no-console": "off", "@typescript-eslint/no-var-requires": "off" }
+overrides:
+  - files: ["web/frontend/angular/*.ts"]
+    parser: "@typescript-eslint/parser"
+    parserOptions:
+      ecmaVersion: 13
+      sourceType: module
+      project: [
+        "web/frontend/angular/tsconfig.app.json",
+        "web/frontend/angular/tsconfig.spec.json",
+        "web/frontend/angular/tsconfig.json",
+      ]
+    plugins: [
+      "@typescript-eslint",
+      "@angular-eslint",
+    ]
+    extends: [
+      "plugin:@angular-eslint/recommended",
+      "plugin:@angular-eslint/template/process-inline-templates",
+      "prettier",
+    ]
+    rules: {}
+
+  - files: ["web/frontend/angular/*.html"]
+    parser: "@angular-eslint/template-parser"
+    plugins: [
+      "@angular-eslint/template",
+    ]
+    extends: [
+      "plugin:@angular-eslint/template/recommended",
+      "prettier",
+    ]
+    rules: {}
