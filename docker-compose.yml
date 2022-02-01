@@ -1,41 +1,41 @@
 version: "3.7"
 services:
-    db:
-        image: postgres:14-alpine
-        ports:
-            - "127.0.0.1:7000:5432"
-        environment:
-            POSTGRES_DB: web
-            POSTGRES_PASSWORD: pass
-            POSTGRES_USER: admin
-            PGDATA: /var/lib/postgresql/data/pgdata
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U admin -d web"]
-            interval: 2s
-            timeout: 1s
-            retries: 5
-        volumes:
-            - pgdata:/var/lib/postgresql/data/pgdata
-    web:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - "127.0.0.1:8000:8000"
-        tty: true
-        init: true
-        environment:
-            DATABASE_URL: postgres://admin:pass@db:5432/web
-            DEBUG: 1
-            STATIC_ROOT: /var/www/static
-        depends_on:
-            db:
-                condition: service_healthy
-        env_file: .env
-        volumes:
-            - .:/web:ro
-            - staticfiles:/var/www/static
+  db:
+    image: postgres:14-alpine
+    ports:
+      - "127.0.0.1:7000:5432"
+    environment:
+      POSTGRES_DB: web
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: admin
+      PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d web"]
+      interval: 2s
+      timeout: 1s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql/data/pgdata
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8000:8000"
+    tty: true
+    init: true
+    environment:
+      DATABASE_URL: postgres://admin:pass@db:5432/web
+      DEBUG: 1
+      STATIC_ROOT: /var/www/static
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    volumes:
+      - .:/web:ro
+      - staticfiles:/var/www/static
 
 volumes:
-    pgdata:
-    staticfiles:
+  pgdata:
+  staticfiles:
