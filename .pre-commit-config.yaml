@@ -1,4 +1,3 @@
-exclude: ^web/static/vendored/.+$
 default_language_version:
     node: lts
 repos:
