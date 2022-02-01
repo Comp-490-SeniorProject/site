@@ -40,4 +40,12 @@ skip_gitignore = true
 src_paths = ["web"]
 
 [tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --import-mode=importlib"
+testpaths = ["tests"]
 DJANGO_SETTINGS_MODULE = "web.settings"
+
+[tool.coverage.run]
+branch = true
+source_pkgs = ["web"]
+source = ["tests"]
