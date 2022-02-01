@@ -20,7 +20,6 @@ secure = "~0.3.0"
 whitenoise = "~5.3"
 
 [tool.poetry.dev-dependencies]
-black = "=21.9b0"
 coverage = "~6.0"
 pre-commit = "~2.15.0"
 pytest = "~6.2"
