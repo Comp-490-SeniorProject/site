@@ -1,4 +1,6 @@
 exclude: ^web/static/vendored/.+$
+default_language_version:
+    node: lts
 repos:
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v4.0.1
