@@ -1,7 +1,8 @@
 <header>
   <div class="navbar">
     <a class="home" routerLink="">AquaMonitor</a>
-    <a class="sign-in" routerLink="app-sign-in">Sign In</a>
+    <a class="sign-in" routerLink="app-sign-in" *ngIf="!loggedIn">Sign In</a>
+    <a class="sign-up" routerLink="app-sign-up" *ngIf="!loggedIn">Sign Up</a>
     <a class="product" routerLink="app-product">Product</a>
     <a class="about" routerLink="app-about">About</a>
   </div>

@@ -11,6 +11,9 @@ import {HomeComponent} from "./home/home.component"
 //import { AuthComponent } from './auth/auth.component';
 import {AdminComponent} from "./admin/admin.component"
 import {SignInComponent} from "./sign-in/sign-in.component"
+import { SignUpComponent } from "./sign-up/sign-up.component"
+import { HttpClientModule } from "@angular/common/http"
+import { CommonModule } from "@angular/common"
 
 @NgModule({
     declarations: [
@@ -23,12 +26,15 @@ import {SignInComponent} from "./sign-in/sign-in.component"
         HomeComponent,
         AdminComponent,
         SignInComponent,
+        SignUpComponent,
     ],
     imports: [
+        CommonModule,
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

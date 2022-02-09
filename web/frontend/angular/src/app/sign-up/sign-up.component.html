@@ -1,0 +1,63 @@
+<div class="register">
+  <h2 class="register-header">Register</h2>
+  <form [formGroup]="authForm" class="register-container" (ngSubmit)="signIn()">
+    <p [ngClass]="{'has-error': isSubmitted && formControls.email.errors}">
+      <input type="email" placeholder="Email" formControlName="email" />
+    </p>
+    <div *ngIf="isSubmitted && formControls.email.errors" class="help-block">
+      <div *ngIf="formControls.email.errors.required">Email is required</div>
+      <div *ngIf="formControls.email.errors.email">
+        Must be a valid email address
+      </div>
+    </div>
+    <p
+      [ngClass]="{
+        'has-error': isSubmitted && formControls.password.errors
+      }"
+    >
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      />
+    </p>
+    <div
+      *ngIf="isSubmitted && formControls?.password?.errors"
+      class="help-block"
+    >
+      <div *ngIf="formControls?.password?.errors?.required">
+        Password is required
+      </div>
+      <div *ngIf="formControls?.password?.errors?.minlength">
+        Password must be at least six characters
+      </div>
+    </div>
+
+    <p
+      [ngClass]="{
+        'has-error': isSubmitted && formControls?.confirmPassword?.errors
+      }"
+    >
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        formControlName="confirmPassword"
+      />
+    </p>
+    <div
+      *ngIf="isSubmitted && formControls?.confirmPassword?.errors"
+      class="help-block"
+    >
+      <div *ngIf="formControls?.confirmPassword?.errors?.required">
+        Confirm your password
+      </div>
+      <div *ngIf="formControls?.confirmPassword?.errors?.invalid">
+        Not matching
+      </div>
+    </div>
+
+    <p>
+      <input type="submit" value="Register" />
+    </p>
+  </form>
+</div>

@@ -11,7 +11,7 @@ import {SignInComponent} from "./sign-in/sign-in.component"
 import {AdminComponent} from "./admin/admin.component"
 //import { AuthComponent } from './auth/auth.component';
 import {AuthGuard} from "./auth.guard"
-
+import { SignUpComponent } from "./sign-up/sign-up.component"
 const routes: Routes = [
     {path: "", pathMatch: "full", component: HomeComponent},
     {path: "app-header", component: HeaderComponent},
@@ -23,6 +23,7 @@ const routes: Routes = [
     //component: AuthComponent},
     {path: "app-admin", component: AdminComponent, canActivate: [AuthGuard]},
     {path: "app-sign-in", component: SignInComponent},
+    {path: "app-sign-up", component: SignUpComponent},
 ]
 
 @NgModule({

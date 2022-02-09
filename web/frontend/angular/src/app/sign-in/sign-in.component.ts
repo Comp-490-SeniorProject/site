@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core"
 import {FormBuilder, FormGroup, Validators} from "@angular/forms"
 import {Router} from "@angular/router"
-import {User} from "../user"
 import {AuthService} from "../auth.service"
 
 @Component({
@@ -30,12 +29,17 @@ export class SignInComponent implements OnInit {
         return this.authForm.controls
     }
 
-    signIn() {
+    async signIn() {
         this.isSubmitted = true
         if (this.authForm.invalid) {
             return
         }
-        this.authService.signIn(this.authForm.value)
-        this.router.navigateByUrl("/admin")
+
+        try {
+            await this.authService.signIn(this.authForm.value)
+            this.router.navigateByUrl("/admin")
+        } catch (ex) {
+            alert(`Sign-in failed! ${ex}`)
+        }
     }
 }
