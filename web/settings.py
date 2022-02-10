@@ -14,6 +14,7 @@ from pathlib import Path
 from socket import gethostbyname, gethostname
 
 import environ
+import orjson
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -60,6 +61,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "web.api",
     "web.frontend",
 ]
 
@@ -74,7 +76,19 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "web.middleware.set_secure_headers",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PARSER_CLASSES": ("drf_orjson_renderer.parsers.ORJSONParser",),
+    "ORJSON_RENDERER_OPTIONS": (
+        orjson.OPT_NON_STR_KEYS,
+        orjson.OPT_STRICT_INTEGER,
+    ),
+}
 
 ROOT_URLCONF = "web.urls"
 
@@ -101,7 +115,7 @@ WSGI_APPLICATION = "web.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": env.db(default=f"sqlite:////{BASE_DIR / 'db.sqlite3'}"),
+    "default": env.db(),
 }
 
 
@@ -122,6 +136,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "api.User"
 
 
 # Internationalization

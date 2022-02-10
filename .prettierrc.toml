@@ -1,0 +1,19 @@
+trailingComma = "es5"
+tabWidth = 4
+semi = false
+singleQuote = false
+bracketSpacing = false
+endOfLine = "auto"
+
+[[overrides]]
+files = "*.html"
+
+[overrides.options]
+parser = "angular"
+tabWidth = 2
+
+[[overrides]]
+files = ["*.yaml", "*.yml", "*.json"]
+
+[overrides.options]
+tabWidth = 2

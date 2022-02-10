@@ -9,14 +9,17 @@ license = "MIT"
 django = "~3.2.8"
 django-environ = "~0.7.0"
 django-webpack-loader = "~1.4"
+djangorestframework = "~3.12.4"
+drf-orjson-renderer = "~1.2"
 gunicorn = "~20.1"
+json-logic = {git = "https://github.com/nadirizr/json-logic-py", rev = "5fda912"}
+orjson = "~3.6"
 psycopg2-binary = "~2.9.1"
 python = "~3.9"
 secure = "~0.3.0"
 whitenoise = "~5.3"
 
 [tool.poetry.dev-dependencies]
-black = "=21.9b0"
 coverage = "~6.0"
 pre-commit = "~2.15.0"
 pytest = "~6.2"
@@ -37,4 +40,12 @@ skip_gitignore = true
 src_paths = ["web"]
 
 [tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --import-mode=importlib"
+testpaths = ["tests"]
 DJANGO_SETTINGS_MODULE = "web.settings"
+
+[tool.coverage.run]
+branch = true
+source_pkgs = ["web"]
+source = ["tests"]
