@@ -25,10 +25,10 @@ import { SummaryComponent } from './dashboard-pages/summary/summary.component';
 import { DeviceOverviewComponent } from './devices-pages/device-overview/device-overview.component';
 import { ManageDevicesComponent } from './devices-pages/manage-devices/manage-devices.component';
 
-import { AboutComponent } from './main-pages/about/about.component';
+//import { AboutComponent } from './main-pages/about/about.component';
 import { AdminComponent } from './main-pages/admin/admin.component';
 import { HomeComponent } from './main-pages/home/home.component';
-import { ProductComponent } from './main-pages/product/product.component';
+//import { ProductComponent } from './main-pages/product/product.component';
 import { RegisterComponent } from './main-pages/register/register.component';
 import { SignInComponent } from './main-pages/sign-in/sign-in.component';
 
@@ -38,6 +38,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { DataLogComponent } from './dashboard-pages/parameters/data-log/data-log.component';
 
 import 'bootstrap';
+import { DevicesHeaderComponent } from './layouts/shared/devices-header/devices-header.component';
+import { SettingsHeaderComponent } from './layouts/shared/settings-header/settings-header.component';
 
 @NgModule({
   declarations: [
@@ -46,10 +48,12 @@ import 'bootstrap';
     MainHeaderComponent, SettingsSidebarComponent,
     NotificationsComponent, ParametersComponent, RuntestsComponent, ScheduleComponent, SummaryComponent,
     DeviceOverviewComponent, ManageDevicesComponent,
-    AboutComponent, AdminComponent, HomeComponent, ProductComponent, RegisterComponent, SignInComponent,
+    AdminComponent, HomeComponent, RegisterComponent, SignInComponent,
     AccountSettingsComponent,
     DataLogComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DevicesHeaderComponent,
+    SettingsHeaderComponent
   ],
 
   imports: [
