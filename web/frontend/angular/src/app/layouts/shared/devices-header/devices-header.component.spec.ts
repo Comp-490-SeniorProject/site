@@ -1,25 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from "@angular/core/testing"
 
-import { DevicesHeaderComponent } from './devices-header.component';
+import {DevicesHeaderComponent} from "./devices-header.component"
 
-describe('DevicesHeaderComponent', () => {
-  let component: DevicesHeaderComponent;
-  let fixture: ComponentFixture<DevicesHeaderComponent>;
+describe("DevicesHeaderComponent", () => {
+    let component: DevicesHeaderComponent
+    let fixture: ComponentFixture<DevicesHeaderComponent>
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DevicesHeaderComponent ]
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [DevicesHeaderComponent],
+        }).compileComponents()
     })
-    .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DevicesHeaderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DevicesHeaderComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    it("should create", () => {
+        expect(component).toBeTruthy()
+    })
+})

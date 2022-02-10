@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core"
 
 @Component({
-  selector: 'app-settings-header',
-  templateUrl: './settings-header.component.html',
-  styleUrls: ['./settings-header.component.scss']
+    selector: "app-settings-header",
+    templateUrl: "./settings-header.component.html",
+    styleUrls: ["./settings-header.component.scss"],
 })
 export class SettingsHeaderComponent implements OnInit {
+    constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }

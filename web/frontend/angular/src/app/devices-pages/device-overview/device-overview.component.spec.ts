@@ -1,25 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from "@angular/core/testing"
 
-import { DeviceOverviewComponent } from './device-overview.component';
+import {DeviceOverviewComponent} from "./device-overview.component"
 
-describe('DeviceOverviewComponent', () => {
-  let component: DeviceOverviewComponent;
-  let fixture: ComponentFixture<DeviceOverviewComponent>;
+describe("DeviceOverviewComponent", () => {
+    let component: DeviceOverviewComponent
+    let fixture: ComponentFixture<DeviceOverviewComponent>
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DeviceOverviewComponent ]
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [DeviceOverviewComponent],
+        }).compileComponents()
     })
-    .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DeviceOverviewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DeviceOverviewComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    it("should create", () => {
+        expect(component).toBeTruthy()
+    })
+})
