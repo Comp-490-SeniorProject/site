@@ -41,6 +41,9 @@ import "bootstrap"
 import {DevicesHeaderComponent} from "./layouts/shared/devices-header/devices-header.component"
 import {SettingsHeaderComponent} from "./layouts/shared/settings-header/settings-header.component"
 
+import {HashLocationStrategy} from "@angular/common"
+import {LocationStrategy} from "@angular/common"
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -79,7 +82,7 @@ import {SettingsHeaderComponent} from "./layouts/shared/settings-header/settings
         ReactiveFormsModule,
     ],
 
-    providers: [],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
 
     bootstrap: [AppComponent],
 })
