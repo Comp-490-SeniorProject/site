@@ -1,0 +1,16 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding-top: 35px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    background: linear-gradient(#071b3d, #114474, #166c81);
+}
+
+.nav-link {
+    color: white;
+}

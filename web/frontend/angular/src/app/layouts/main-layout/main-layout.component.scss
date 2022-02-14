@@ -1,0 +1,9 @@
+.main-body {
+    background-image: radial-gradient(
+        circle farthest-corner at 0% -20%,
+        rgba(134, 241, 209, 1) 0%,
+        rgba(13, 45, 101, 1) 90%
+    );
+    min-height: 100vh;
+    overflow: hidden;
+}
