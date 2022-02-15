@@ -8,6 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 django = "~3.2.8"
 django-environ = "~0.7.0"
+django-rest-registration = "~0.7"
 django-webpack-loader = "~1.4"
 djangorestframework = "~3.12.4"
 drf-orjson-renderer = "~1.2"

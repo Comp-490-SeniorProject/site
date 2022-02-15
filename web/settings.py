@@ -43,7 +43,6 @@ else:
         gethostbyname(gethostname()),
     ]
 
-
 # Application definition
 
 DJANGO_APPS = [
@@ -58,6 +57,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "webpack_loader",
+    "rest_registration",
 ]
 
 LOCAL_APPS = [
@@ -88,6 +88,12 @@ REST_FRAMEWORK = {
         orjson.OPT_NON_STR_KEYS,
         orjson.OPT_STRICT_INTEGER,
     ),
+}
+
+REST_REGISTRATION = {
+    "REGISTER_VERIFICATION_ENABLED": False,
+    "RESET_PASSWORD_VERIFICATION_ENABLED": False,
+    "REGISTER_EMAIL_VERIFICATION_ENABLED": False,
 }
 
 ROOT_URLCONF = "web.urls"
