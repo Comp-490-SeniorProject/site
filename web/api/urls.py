@@ -20,4 +20,5 @@ router.register("test_history", TestHistoryViewSet, basename="test_history")
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("accounts/", include("rest_registration.api.urls")),
 ]
