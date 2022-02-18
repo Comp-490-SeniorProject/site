@@ -20,7 +20,7 @@ export class AuthService {
 
     public async signIn(userData: User) {
         const response = await this.http
-            .post<AuthResponse>(`${environment.serverURL}/sign-in`, userData)
+            .post<AuthResponse>(`${environment.serverURL}/api/accounts/login/`, userData)
             .toPromise()
 
         if (!response?.access_token) {
@@ -33,7 +33,7 @@ export class AuthService {
 
     public async register(userData: User) {
         const response = await this.http
-            .post<AuthResponse>(`${environment.serverURL}/register`, userData)
+            .post<AuthResponse>(`${environment.serverURL}/api/accounts/register/`, userData)
             .toPromise()
 
         if (!response?.access_token) {
