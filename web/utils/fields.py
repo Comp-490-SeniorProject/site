@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.core import exceptions
 from django.db import models
 
-__all__ = ("ChoiceArrayField",)
+__all__ = ("ChoiceArrayField", "NullEmailField")
 
 
 class ChoiceArrayField(ArrayField):
@@ -56,3 +56,22 @@ class OrjsonField(models.JSONField):
         kwargs["encoder"] = orjson.dumps
         kwargs["decoder"] = orjson.loads
         super().__init__(verbose_name, name, **kwargs)
+
+
+class NullEmailField(models.EmailField):
+    """A `django.db.models.EmailField` which stores empty strings as NULL."""
+
+    def from_db_value(self, value, *_):
+        return "" if value is None else value
+
+    def to_python(self, value):
+        if isinstance(value, str):
+            return value
+        elif value is None:
+            return ""
+
+        return str(value)
+
+    def get_prep_value(self, value):
+        value = super().get_prep_value(value)
+        return None if value.strip() == "" else value
