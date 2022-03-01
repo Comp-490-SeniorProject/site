@@ -16,7 +16,6 @@ import {SummaryComponent} from "./dashboard-pages/summary/summary.component"
 import {DeviceOverviewComponent} from "./devices-pages/device-overview/device-overview.component"
 import {ManageDevicesComponent} from "./devices-pages/manage-devices/manage-devices.component"
 
-
 import {AuthGuard} from "./auth/auth.guard"
 import {HomeComponent} from "./main-pages/home/home.component"
 import {RegisterComponent} from "./main-pages/register/register.component"
@@ -56,11 +55,12 @@ const routes: Routes = [
             },
         ],
     },
+    //Guarded path to the homepage
     {
-    path: "homepage",
-    component:  DevicesLayoutComponent,
-    canActivate: [AuthGuard],
- },
+        path: "homepage",
+        component: DevicesLayoutComponent,
+        canActivate: [AuthGuard],
+    },
 
     // Devices layout pages: Device Overview, Manage Devices
     {
