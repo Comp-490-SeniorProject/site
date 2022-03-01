@@ -16,11 +16,9 @@ import {SummaryComponent} from "./dashboard-pages/summary/summary.component"
 import {DeviceOverviewComponent} from "./devices-pages/device-overview/device-overview.component"
 import {ManageDevicesComponent} from "./devices-pages/manage-devices/manage-devices.component"
 
-//import { AboutComponent } from './main-pages/about/about.component';
+
 import {AuthGuard} from "./auth/auth.guard"
-import {AdminComponent} from "./main-pages/admin/admin.component"
 import {HomeComponent} from "./main-pages/home/home.component"
-//import { ProductComponent } from './main-pages/product/product.component';
 import {RegisterComponent} from "./main-pages/register/register.component"
 import {SignInComponent} from "./main-pages/sign-in/sign-in.component"
 import {AccountSettingsComponent} from "./settings-pages/account-settings/account-settings.component"
@@ -28,7 +26,7 @@ import {AccountSettingsComponent} from "./settings-pages/account-settings/accoun
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component"
 
 const routes: Routes = [
-    // Main layout pages: Home, About, Product, Sign In, Register, Admin
+    // Main layout pages: Home, Sign In, Register
     // "Page Not Found" page also uses this layout with the same header and footer.
     {
         path: "",
@@ -39,12 +37,7 @@ const routes: Routes = [
                 component: HomeComponent,
                 pathMatch: "full",
             },
-            //{
-            //path: 'about', component: AboutComponent
-            //},
-            //{
-            //path: 'product', component: ProductComponent
-            //},
+
             {
                 path: "register",
                 component: RegisterComponent,
@@ -53,11 +46,7 @@ const routes: Routes = [
                 path: "sign-in",
                 component: SignInComponent,
             },
-            {
-                path: "admin",
-                component: AdminComponent,
-                canActivate: [AuthGuard],
-            },
+
             // Redirect to "page not found" for routes/url's that don't exist at all in the whole site.
             // Useful when testing certain functionality to make sure a feature routes to the correct page
             // or performs the expected behavior.
@@ -67,6 +56,11 @@ const routes: Routes = [
             },
         ],
     },
+    {
+    path: "homepage",
+    component:  DevicesLayoutComponent,
+    canActivate: [AuthGuard],
+ },
 
     // Devices layout pages: Device Overview, Manage Devices
     {
