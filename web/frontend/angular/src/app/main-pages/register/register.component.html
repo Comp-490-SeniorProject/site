@@ -22,6 +22,11 @@
         formControlName="password"
       />
     </p>
+    <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
+      <div *ngIf="formControls.password.errors.required">
+        Password is required
+      </div>
+    </div>
     <p
       [ngClass]="{
         'has-error': isSubmitted && formControls.password.errors
@@ -29,15 +34,10 @@
     >
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Confirm Password"
         formControlName="password"
       />
     </p>
-    <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
-      <div *ngIf="formControls.password.errors.required">
-        Password is required
-      </div>
-    </div>
     <p>
       <input type="submit" value="Register" />
     </p>
