@@ -61,7 +61,6 @@ const routes: Routes = [
         component: DevicesLayoutComponent,
         canActivate: [AuthGuard],
     },
-
     // Devices layout pages: Device Overview, Manage Devices
     {
         path: "",
