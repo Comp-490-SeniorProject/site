@@ -38,10 +38,13 @@ if DEBUG:
 
     ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 else:
-    ALLOWED_HOSTS = [
-        gethostname(),
-        gethostbyname(gethostname()),
-    ]
+    ALLOWED_HOSTS = env.list(
+        "ALLOWED_HOSTS",
+        default=[
+            gethostname(),
+            gethostbyname(gethostname()),
+        ],
+    )
 
 # Application definition
 
