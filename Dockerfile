@@ -17,8 +17,8 @@ ENV PIP_NO_CACHE_DIR=false \
 
 WORKDIR /web
 
-ENTRYPOINT ["gunicorn"]
-CMD ["web.wsgi:application", "-b", "0.0.0.0:8000", "--preload"]
+ENTRYPOINT ["python", "manage.py"]
+CMD ["run"]
 
 # Install git for VCS dependencies in poetry.
 RUN apt-get -y update && apt-get install -y git
