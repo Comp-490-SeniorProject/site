@@ -8,7 +8,7 @@ WORKDIR /frontend/angular
 
 # Install Node modules.
 COPY ./web/frontend/angular/package*.json ./
-RUN npm ci
+RUN npm ci && npm cache clean --force
 
 # Build the webpack bundle.
 COPY ./web/frontend/angular/ ./
