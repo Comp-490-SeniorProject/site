@@ -1,5 +1,9 @@
 FROM node:16-bullseye-slim as angular
 
+ENV NPM_CONFIG_AUDIT=false \
+    NPM_CONFIG_FUND=false \
+    NPM_CONFIG_UPDATE_NOTIFIER=false
+
 WORKDIR /frontend/angular
 
 # Install Node modules.
@@ -10,9 +14,11 @@ RUN npm ci
 COPY ./web/frontend/angular/ ./
 RUN npm run build -c production
 
+# ------------------------------------------------------------------------------
 FROM --platform=linux/amd64 python:3.9-slim-bullseye
 
-ENV PIP_NO_CACHE_DIR=false \
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=false \
     POETRY_VIRTUALENVS_CREATE=false
 
 WORKDIR /web
