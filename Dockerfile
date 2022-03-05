@@ -26,9 +26,6 @@ WORKDIR /web
 ENTRYPOINT ["python", "manage.py"]
 CMD ["run"]
 
-# Install git for VCS dependencies in poetry.
-RUN apt-get -y update && apt-get install -y git
-
 # Install dependencies.
 RUN pip install -U poetry
 COPY poetry.lock pyproject.toml ./
