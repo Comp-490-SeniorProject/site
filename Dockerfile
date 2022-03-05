@@ -28,11 +28,18 @@ RUN pip install -U poetry
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-dev
 
-# Copy the bundle from the previous step and copy the rest of the source files.
-# The Angular source files aren't needed, but it's not worth the hassle to
-# delete them.
-COPY --from=angular /frontend/ ./frontend/
+# Copy from host first so the files get overwritten by the next copy.
+# The angular source files aren't needed, but it'd be tedious to
+# exclude them; .dockerignore cannot be used for them since they are
+# still needed by the first build stage.
 COPY . .
+
+# Copy the webpack bundle from the first stage.
+# Can't copy the entire directory because .dockerignore doesn't get
+# applied to individual copies between stages.
+COPY --from=angular /frontend/static/ ./web/frontend/static/
+COPY --from=angular /frontend/angular/webpack-stats.json \
+    ./web/frontend/angular/
 
 # Set dummy value for env var so collectstatic can load settings.py.
 RUN DATABASE_URL=postgres://localhost \
