@@ -6,5 +6,9 @@ module.exports = {
         path: path.resolve("../static"),
         filename: "[name]-[contenthash].js",
     },
-    plugins: [new BundleTracker({filename: "./webpack-stats.json"})],
+    plugins: [
+        new BundleTracker({
+            filename: process.env.WEBPACK_STATS ?? "./webpack-stats.json",
+        }),
+    ],
 }

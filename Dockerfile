@@ -19,7 +19,8 @@ FROM --platform=linux/amd64 python:3.9-slim-bullseye
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=false \
-    POETRY_VIRTUALENVS_CREATE=false
+    POETRY_VIRTUALENVS_CREATE=false \
+    WEBPACK_STATS=/web/webpack-stats.json
 
 WORKDIR /web
 
@@ -41,8 +42,7 @@ COPY . .
 # Can't copy the entire directory because .dockerignore doesn't get
 # applied to individual copies between stages.
 COPY --from=angular /frontend/static/ ./web/frontend/static/
-COPY --from=angular /frontend/angular/webpack-stats.json \
-    ./web/frontend/angular/
+COPY --from=angular /frontend/angular/webpack-stats.json $WEBPACK_STATS
 
 # Set dummy value for env var so collectstatic can load settings.py.
 RUN DATABASE_URL=postgres://localhost \
