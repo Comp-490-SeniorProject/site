@@ -28,7 +28,7 @@ services:
       ALLOWED_HOSTS: "*"
       DATABASE_URL: postgres://admin:pass@db:5432/web
       DJANGO_LOG_LEVEL: INFO
-      DEBUG: 1
+      DEBUG: 0
     depends_on:
       db:
         condition: service_healthy
