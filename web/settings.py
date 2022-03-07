@@ -63,6 +63,7 @@ THIRD_PARTY_APPS = [
     "rest_registration",
     "django_filters",
     "pgtrigger",
+    "django_q",
 ]
 
 LOCAL_APPS = [
@@ -131,6 +132,14 @@ DATABASES = {
     "default": env.db(),
 }
 
+
+Q_CLUSTER = {
+    "name": "django_orm",
+    "timeout": 60,
+    "retry": 60,
+    "bulk": 10,
+    "orm": "default",
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
