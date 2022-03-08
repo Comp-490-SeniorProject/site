@@ -5,6 +5,9 @@
     class="register-container"
     (ngSubmit)="register()"
   >
+    <div class="row d-none" id="error">
+      <span>Invalid Credentials</span>
+    </div>
     <p [ngClass]="{'has-error': isSubmitted && formControls.email.errors}">
       <input type="email" placeholder="Email" formControlName="email" />
     </p>
@@ -35,7 +38,7 @@
       <input
         type="password"
         placeholder="Confirm Password"
-        formControlName="password"
+        formControlName="password_confirm"
       />
     </p>
     <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
@@ -48,3 +51,4 @@
     </p>
   </form>
 </div>
+z
