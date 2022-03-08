@@ -107,6 +107,8 @@ def run_server():
             "0.0.0.0:8000",
             "--access-logfile",
             "-",
+            "--error-logfile",
+            "-",
             "--preload",
         ]
 
