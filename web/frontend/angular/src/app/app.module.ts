@@ -41,6 +41,7 @@ import {SettingsHeaderComponent} from "./layouts/shared/settings-header/settings
 
 import {HashLocationStrategy} from "@angular/common"
 import {LocationStrategy} from "@angular/common"
+import {HttpClientModule} from "@angular/common/http"
 
 @NgModule({
     declarations: [
@@ -77,6 +78,7 @@ import {LocationStrategy} from "@angular/common"
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
+        HttpClientModule,
     ],
 
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
