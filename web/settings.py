@@ -61,6 +61,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "webpack_loader",
     "rest_registration",
+    "django_filters",
 ]
 
 LOCAL_APPS = [
@@ -86,6 +87,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
     ],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_PARSER_CLASSES": ("drf_orjson_renderer.parsers.ORJSONParser",),
     "ORJSON_RENDERER_OPTIONS": (
         orjson.OPT_NON_STR_KEYS,
