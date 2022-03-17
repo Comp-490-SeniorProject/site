@@ -17,7 +17,6 @@ export class AuthService {
         localStorage.removeItem("ACCESS_TOKEN")
     }
     public register(userData: User) {
-        userData.username = userData.email
         console.log(userData)
         return this.http.post(
             "http://0.0.0.0:8000/" + "api/accounts/register/",
