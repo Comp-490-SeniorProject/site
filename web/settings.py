@@ -62,6 +62,7 @@ THIRD_PARTY_APPS = [
     "webpack_loader",
     "rest_registration",
     "django_filters",
+    "pgtrigger",
 ]
 
 LOCAL_APPS = [

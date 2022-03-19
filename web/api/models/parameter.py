@@ -1,7 +1,10 @@
+import pgtrigger
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .test import Test
+from web.utils.triggers import ProtectColumn
+
+from .device import Device
 
 
 class ParameterType(models.TextChoices):
@@ -10,6 +13,7 @@ class ParameterType(models.TextChoices):
     SEMI = "semi", _("Semi-automatic")
 
 
+@pgtrigger.register(ProtectColumn(name="api_parameter_protect_device_update", column="device"))
 class Parameter(models.Model):
 
     name = models.TextField(help_text="A user-friendly string that names the parameter.")
@@ -20,6 +24,9 @@ class Parameter(models.Model):
         choices=ParameterType.choices,
         help_text="Determines how the parameter is tested and how its data is collected.",
     )
-    test = models.ForeignKey(
-        Test, on_delete=models.CASCADE, help_text="The test which sets this parameter."
+    device = models.ForeignKey(
+        Device,
+        on_delete=models.CASCADE,
+        related_name="parameters",
+        help_text="The device which tests this parameter.",
     )

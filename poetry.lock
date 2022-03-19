@@ -108,6 +108,29 @@ python-versions = ">=3.6"
 Django = ">=2.2"
 
 [[package]]
+name = "django-pgconnection"
+version = "1.0.2"
+description = "Route postgres connections and hook into cursor execution"
+category = "main"
+optional = false
+python-versions = ">=3.6.2,<4"
+
+[package.dependencies]
+django = ">=2"
+
+[[package]]
+name = "django-pgtrigger"
+version = "2.4.1"
+description = "Postgres trigger support integrated with Django models."
+category = "main"
+optional = false
+python-versions = ">=3.7.0,<4"
+
+[package.dependencies]
+django = ">=2"
+django-pgconnection = ">=1.0.1"
+
+[[package]]
 name = "django-rest-registration"
 version = "0.7.2"
 description = "User registration REST API, based on django-rest-framework"
@@ -421,7 +444,7 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.9"
-content-hash = "6e08a026a95767c3d4a70041da6cfa30396cebc2b6661f6faa2460f73fce5884"
+content-hash = "0f0600f8e9bbed995ba45d910cc7bfe62d5ae03fb0064d590d5ec60ba63fa134"
 
 [metadata.files]
 asgiref = [
@@ -494,6 +517,14 @@ django-environ = [
 django-filter = [
     {file = "django-filter-21.1.tar.gz", hash = "sha256:632a251fa8f1aadb4b8cceff932bb52fe2f826dd7dfe7f3eac40e5c463d6836e"},
     {file = "django_filter-21.1-py3-none-any.whl", hash = "sha256:f4a6737a30104c98d2e2a5fb93043f36dd7978e0c7ddc92f5998e85433ea5063"},
+]
+django-pgconnection = [
+    {file = "django-pgconnection-1.0.2.tar.gz", hash = "sha256:1c012e789cd65bee1d514de6a4b3f90c888e599c3c2be195e7bb3627923bb7f3"},
+    {file = "django_pgconnection-1.0.2-py3-none-any.whl", hash = "sha256:51ea5943faaa4aa4a2f953586b925ecddec852b009c004ee0b5de93d5ae162f7"},
+]
+django-pgtrigger = [
+    {file = "django-pgtrigger-2.4.1.tar.gz", hash = "sha256:0c370d1bb44361faf9948cec67a0a983885ba8e36da9416aad8fda3b69fea992"},
+    {file = "django_pgtrigger-2.4.1-py3-none-any.whl", hash = "sha256:24938353f60898a57bf7ca6371f2f565fc473f506781c32719bd1538115d637e"},
 ]
 django-rest-registration = [
     {file = "django-rest-registration-0.7.2.tar.gz", hash = "sha256:83996992658fe1f6ceb1fcd12ebad3a4deb11c6a8b993c5901c573b6c6f70aa4"},
