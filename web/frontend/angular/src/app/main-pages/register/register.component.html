@@ -21,6 +21,14 @@
         Username is required
       </div>
     </div>
+    <p [ngClass]="{'has-error': isSubmitted && formControls.email.errors}">
+      <input
+        type="email"
+        placeholder="Email"
+        class="form-control"
+        formControlName="email"
+      />
+    </p>
     <p
       [ngClass]="{
         'has-error': isSubmitted && formControls.password.errors
