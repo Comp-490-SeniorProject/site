@@ -1,6 +1,5 @@
 import {Component, OnInit} from "@angular/core"
 import {ApisService} from "src/app/apis/apis.service"
-import * as $ from "jquery"
 
 @Component({
     selector: "app-notifications",
@@ -19,26 +18,29 @@ export class NotificationsComponent implements OnInit {
             (res: any) => {
                 console.log(res)
                 if (res.status == 200) {
-                    $("#notification").removeClass("d-none")
-                    setTimeout(() => {
-                        $("#notification").addClass("d-none")
-                    }, 2000)
-                    $("form").trigger("reset")
+                    let notification = document.getElementById("notification")
+                    notification?.classList.remove("d-none")
                 } else {
-                    $("input,select").addClass("error")
-                    setTimeout(() => {
-                        $("input,select").removeClass("error")
-                    }, 2000)
-                    $("form").trigger("reset")
+                    let input = document.getElementsByTagName("input")
+                    for (let i = 0; i < input.length; i++) {
+                        input[i].setAttribute("class", "error form-control")
+                    }
+                    let sel = document.getElementsByTagName("select")
+                    for (let i = 0; i < sel.length; i++) {
+                        sel[i].setAttribute("class", "error form-control")
+                    }
                 }
             },
             (error) => {
                 console.log(error)
-                $("input,select").addClass("error")
-                setTimeout(() => {
-                    $("input,select").removeClass("error")
-                }, 2000)
-                $("form").trigger("reset")
+                let input = document.getElementsByTagName("input")
+                for (let i = 0; i < input.length; i++) {
+                    input[i].setAttribute("class", "error form-control")
+                }
+                let sel = document.getElementsByTagName("select")
+                for (let i = 0; i < sel.length; i++) {
+                    sel[i].setAttribute("class", "error form-control")
+                }
             }
         )
     }
