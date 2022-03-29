@@ -38,10 +38,13 @@ if DEBUG:
 
     ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 else:
-    ALLOWED_HOSTS = [
-        gethostname(),
-        gethostbyname(gethostname()),
-    ]
+    ALLOWED_HOSTS = env.list(
+        "ALLOWED_HOSTS",
+        default=[
+            gethostname(),
+            gethostbyname(gethostname()),
+        ],
+    )
 
 # Application definition
 
@@ -165,15 +168,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = env("STATIC_ROOT", default=BASE_DIR / "static_root")
+STATIC_ROOT = env.path("STATIC_ROOT", default=BASE_DIR / "static_root")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STATS_FILE = env.path(
+    "WEBPACK_STATS", default=BASE_DIR / "web" / "frontend" / "angular" / "webpack-stats.json"
+)
 
 WEBPACK_LOADER = {
     "DEFAULT": {
         "BUNDLE_DIR_NAME": "",
         "CACHE": not DEBUG,
-        "STATS_FILE": BASE_DIR / "web" / "frontend" / "angular" / "webpack-stats.json",
+        "STATS_FILE": STATS_FILE,
         "POLL_INTERVAL": 0.1,
         "IGNORE": [r".+\.hot-update.js", r".+\.map"],
     }
@@ -183,3 +190,27 @@ WEBPACK_LOADER = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": (
+                "%(asctime)s | %(process)d:%(thread)d | %(module)s | %(levelname)-8s | %(message)s"
+            )
+        }
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": env("DJANGO_LOG_LEVEL", default="INFO" if DEBUG else "WARN"),
+            "propagate": True,
+        },
+    },
+}
