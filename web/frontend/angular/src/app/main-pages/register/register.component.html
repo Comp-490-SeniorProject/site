@@ -6,7 +6,10 @@
     (ngSubmit)="register()"
   >
     <div class="row d-none" id="error">
-      <span>Invalid Credentials</span>
+      <span>{{ status }}</span>
+    </div>
+    <div class="row d-none" id="success">
+      <span class="text-success">{{ status }}</span>
     </div>
     <p [ngClass]="{'has-error': isSubmitted && formControls.username.errors}">
       <input

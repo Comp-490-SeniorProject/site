@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core"
 import {User} from "./user"
 import {HttpClient} from "@angular/common/http"
+import {environment} from "src/environments/environment"
 
 @Injectable({
     providedIn: "root",
@@ -17,9 +18,8 @@ export class AuthService {
         localStorage.removeItem("ACCESS_TOKEN")
     }
     public register(userData: User) {
-        console.log(userData)
         return this.http.post(
-            "http://0.0.0.0:8000/" + "api/accounts/register/",
+            environment.baseUrl + "api/accounts/register/",
             userData
         )
     }

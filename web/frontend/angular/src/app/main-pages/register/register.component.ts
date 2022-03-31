@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
         return this.authForm.controls
     }
 
+    status: any
     register() {
         this.isSubmitted = true
         if (this.authForm.invalid) {
@@ -40,11 +41,21 @@ export class RegisterComponent implements OnInit {
         }
         this.authService.register(this.authForm.value).subscribe(
             (res: any) => {
-                console.log(res)
-                this.router.navigateByUrl("homepage")
+                this.status = "User Created..!"
+                let input = document.getElementsByTagName("input")
+                for (let i = 0; i < input.length - 1; i++) {
+                    input[i].classList.remove("error")
+                }
+                let err = document.getElementById("error")
+                err?.classList.add("d-none")
+                let success = document.getElementById("success")
+                success?.classList.remove("d-none")
+                setTimeout(() => {
+                    this.router.navigateByUrl("homepage")
+                }, 2000)
             },
             (error) => {
-                console.log(error)
+                this.status = error.statusText
                 let input = document.getElementsByTagName("input")
                 for (let i = 0; i < input.length - 1; i++) {
                     input[i].setAttribute("class", "error form-control")
