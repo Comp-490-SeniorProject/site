@@ -12,10 +12,13 @@ class TestViewSet(viewsets.ModelViewSet):
         "name",
         "created_at",
         "frequency",
-        "device__id",
+        "parameter__id",
+        "parameter__type",
+        "parameter__sensor_id",
+        "parameter__device__id",
     ]
     ordering_fields = ["created_at"]
     ordering = ["created_at"]
 
     def get_queryset(self):
-        return Test.objects.filter(device__owner=self.request.user)
+        return Test.objects.filter(parameter__device__owner=self.request.user)
