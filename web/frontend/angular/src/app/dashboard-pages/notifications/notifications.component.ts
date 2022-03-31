@@ -13,48 +13,41 @@ export class NotificationsComponent implements OnInit {
         this.fetchTest()
     }
 
+    status: any
+
     addNotification(data: any) {
         this.apiservice.createNotification(data).subscribe(
             (res: any) => {
-                console.log(res)
                 if (res.status == 200) {
                     let notification = document.getElementById("notification")
                     notification?.classList.remove("d-none")
                 } else {
-                    let input = document.getElementsByTagName("input")
-                    for (let i = 0; i < input.length; i++) {
-                        input[i].setAttribute("class", "error form-control")
-                    }
-                    let sel = document.getElementsByTagName("select")
-                    for (let i = 0; i < sel.length; i++) {
-                        sel[i].setAttribute("class", "error form-control")
-                    }
+                    this.errorDisplay()
+                    this.status = res.statusText
                 }
             },
             (error) => {
-                console.log(error)
-                let input = document.getElementsByTagName("input")
-                for (let i = 0; i < input.length; i++) {
-                    input[i].setAttribute("class", "error form-control")
-                }
-                let sel = document.getElementsByTagName("select")
-                for (let i = 0; i < sel.length; i++) {
-                    sel[i].setAttribute("class", "error form-control")
-                }
+                this.errorDisplay()
+                this.status = error.statusText
             }
         )
     }
 
+    errorDisplay() {
+        let input = document.getElementsByTagName("input")
+        for (let i = 0; i < input.length; i++) {
+            input[i].setAttribute("class", "error form-control")
+        }
+        let sel = document.getElementsByTagName("select")
+        for (let i = 0; i < sel.length; i++) {
+            sel[i].setAttribute("class", "error form-control")
+        }
+    }
+
     tests = []
     fetchTest() {
-        this.apiservice.allTests().subscribe(
-            (res: any) => {
-                this.tests = res
-                console.log(this.tests)
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
+        this.apiservice.allTests().subscribe((res: any) => {
+            this.tests = res
+        })
     }
 }
