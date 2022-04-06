@@ -26,5 +26,6 @@ class TestSerializer(serializers.ModelSerializer):
         return Test.objects.create(**validated_data, schedule=schedule)
 
     def update(self, instance, validated_data):
-        self.schedule.update(instance.schedule, validated_data.pop("schedule"))
+        schedule_serializer = self.fields["schedule"]
+        schedule_serializer.update(instance.schedule, validated_data.pop("schedule"))
         return super().update(instance, validated_data)
