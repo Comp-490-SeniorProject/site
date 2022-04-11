@@ -6,6 +6,7 @@ authors = ["Comp-490-SeniorProject"]
 license = "MIT"
 
 [tool.poetry.dependencies]
+boto3 = "~1.21"
 django = "~3.2.8"
 django-environ = "~0.7.0"
 django-filter = ">=21,<23"
