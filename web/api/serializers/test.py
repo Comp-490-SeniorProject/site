@@ -19,8 +19,8 @@ class TestSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         schedule = Schedule.objects.create(
-            func="print",
-            args=f"'Running test {validated_data['name']} for param {validated_data['parameter']}'",
+            func="web.api.aws.publish_test",
+            args=validated_data["parameter"].id,
             **validated_data.pop("schedule"),
         )
         return Test.objects.create(**validated_data, schedule=schedule)
