@@ -33,30 +33,21 @@ class TestHistory(models.Model):
         constraints = [
             models.CheckConstraint(
                 name="scheduled_timestamps_null",
-                check=models.Q(
-                    status__exact=TestStatus.SCHEDULED,
-                    started_at__isnull=True,
-                    ended_at__isnull=True,
-                ),
+                check=~models.Q(status=TestStatus.SCHEDULED)
+                | models.Q(started_at__isnull=True, ended_at__isnull=True),
             ),
             models.CheckConstraint(
                 name="running_started_at_not_null_ended_at_null",
-                check=models.Q(
-                    status__exact=TestStatus.RUNNING,
-                    started_at__isnull=False,
-                    ended_at__isnull=True,
-                ),
+                check=~models.Q(status=TestStatus.RUNNING)
+                | models.Q(started_at__isnull=False, ended_at__isnull=True),
             ),
             models.CheckConstraint(
                 name="succeeded_timestamps_not_null",
-                check=models.Q(
-                    status__exact=TestStatus.SUCCEEDED,
-                    started_at__isnull=False,
-                    ended_at__isnull=False,
-                ),
+                check=~models.Q(status=TestStatus.SUCCEEDED)
+                | models.Q(started_at__isnull=False, ended_at__isnull=False),
             ),
             models.CheckConstraint(
                 name="cancelled_ended_at_not_null",
-                check=models.Q(status__exact=TestStatus.CANCELLED, ended_at__isnull=False),
+                check=~models.Q(status=TestStatus.CANCELLED) | models.Q(ended_at__isnull=False),
             ),
         ]
