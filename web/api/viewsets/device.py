@@ -6,6 +6,7 @@ from web.api.serializers import DeviceSerializer
 
 class DeviceViewSet(viewsets.ModelViewSet):
     serializer_class = DeviceSerializer
+    filterset_fields = ["name"]
 
     def get_queryset(self):
         return Device.objects.filter(owner=self.request.user)

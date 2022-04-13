@@ -26,10 +26,8 @@ import {SummaryComponent} from "./dashboard-pages/summary/summary.component"
 import {DeviceOverviewComponent} from "./devices-pages/device-overview/device-overview.component"
 import {ManageDevicesComponent} from "./devices-pages/manage-devices/manage-devices.component"
 
-//import { AboutComponent } from './main-pages/about/about.component';
-import {AdminComponent} from "./main-pages/admin/admin.component"
 import {HomeComponent} from "./main-pages/home/home.component"
-//import { ProductComponent } from './main-pages/product/product.component';
+
 import {RegisterComponent} from "./main-pages/register/register.component"
 import {SignInComponent} from "./main-pages/sign-in/sign-in.component"
 
@@ -65,7 +63,6 @@ import {LocationStrategy} from "@angular/common"
         SummaryComponent,
         DeviceOverviewComponent,
         ManageDevicesComponent,
-        AdminComponent,
         HomeComponent,
         RegisterComponent,
         SignInComponent,
