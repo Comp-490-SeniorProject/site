@@ -1,6 +1,92 @@
-<div class="card mb-3">
-  <div class="card-body">
-    <h4 class="card-title">Notifications</h4>
-    <p class="card-text">Notification configurations for sensor tests</p>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card p-2">
+      <div class="card-title p-2 border-bottom">
+        <h5 class="card-title">Notifications Settings</h5>
+        <p class="card-text text-secondary">
+          Notification configurations for sensor tests
+        </p>
+      </div>
+      <div class="card-body">
+        <div class="notification d-none" id="notification">
+          <span class="text-success font-weight-bold"
+            >Notification Settings Added</span
+          >
+        </div>
+        <div class="notification" id="error">
+          <span class="text-danger font-weight-bold">{{ status }}</span>
+        </div>
+        <form
+          method="post"
+          class="flex-column"
+          #addnotificationForm="ngForm"
+          (ngSubmit)="addNotification(addnotificationForm.value)"
+        >
+          <div class="row">
+            <div class="col-lg-6">
+              <label for="" class="mb-2">Choose Test</label>
+              <select
+                name="test"
+                id="test"
+                class="form-control"
+                #test="ngModel"
+                ngModel
+                required
+              >
+                <option value="1">1</option>
+                <!-- <option value="{{ item['id'] }}">{{ item["name"] }}</option> -->
+              </select>
+            </div>
+            <div class="col-lg-6">
+              <label for="" class="mb-2">Enter Condition In Json</label>
+              <input
+                type="text"
+                class="form-control"
+                name="condition"
+                id="condition"
+                #condition="ngModel"
+                ngModel
+                required
+              />
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-lg-6">
+              <label for="" class="mb-2">Enter Notification Messages</label>
+              <input
+                type="text"
+                class="form-control"
+                name="message"
+                id="message"
+                #message="ngModel"
+                ngModel
+                required
+              />
+            </div>
+            <div class="col-lg-6">
+              <label for="" class="mb-2">Select Destination</label>
+              <select
+                name="destination"
+                id="destination"
+                class="form-control"
+                #destination="ngModel"
+                ngModel
+                required
+              >
+                <option value="WE" selected>WEB</option>
+                <option value="EM">EMAIL</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-lg-12">
+              <button type="submit" class="btn btn-sm btn-block btn-primary">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
