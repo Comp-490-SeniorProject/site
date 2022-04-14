@@ -43,6 +43,8 @@ import {SettingsHeaderComponent} from "./layouts/shared/settings-header/settings
 import {HashLocationStrategy} from "@angular/common"
 import {LocationStrategy} from "@angular/common"
 
+import {HttpClientXsrfModule} from "@angular/common/http"
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -79,6 +81,10 @@ import {LocationStrategy} from "@angular/common"
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: "csrftoken",
+            headerName: "X-CSRFToken",
+        }),
     ],
 
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],

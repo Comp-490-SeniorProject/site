@@ -1,5 +1,11 @@
 import {Component, OnInit} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
+import {NgForm} from "@angular/forms"
+import {HttpHeaders} from "@angular/common/http"
+import {HttpParams} from "@angular/common/http"
+
+import {from, Observable} from "rxjs"
+import {FormBuilder} from "@angular/forms"
 
 export class Devices {
     constructor(
@@ -15,11 +21,16 @@ export class Devices {
     styleUrls: ["./manage-devices.component.scss"],
 })
 export class ManageDevicesComponent implements OnInit {
-    url = "http://127.0.0.1:8000/api/devices"
+    url = "api/devices/"
 
     devices: Devices[] | undefined
 
-    constructor(http: HttpClient) {
+    addDeviceForm = this.formBuilder.group({
+        name: "",
+        description: "",
+    })
+
+    constructor(private http: HttpClient, private formBuilder: FormBuilder) {
         http.get<any[]>(`${this.url}`, {
             headers: {
                 Accept: "application/json",
@@ -33,4 +44,30 @@ export class ManageDevicesComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    onSubmit() {
+        const headers = {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        }
+
+        const deviceInfo = JSON.stringify(this.addDeviceForm.value)
+        console.log(deviceInfo)
+
+        this.http.post<any[]>(`${this.url}`, deviceInfo, {headers}).subscribe()
+        this.addDeviceForm.reset()
+        //close form
+        this.http
+            .get<any[]>(`${this.url}`, {
+                headers: {
+                    Accept: "application/json",
+                },
+            })
+            .subscribe(
+                (result) => {
+                    this.devices = result
+                },
+                (error) => console.error(error)
+            )
+    }
 }

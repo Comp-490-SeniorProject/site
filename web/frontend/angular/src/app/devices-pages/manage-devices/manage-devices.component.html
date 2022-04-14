@@ -1,60 +1,117 @@
-<h3>Manage Devices</h3>
+<div class="col-md-12 d-flex">
+  <h3>Manage Devices</h3>
+  <button
+    type="button"
+    class="btn btn-primary ml-auto"
+    data-bs-toggle="modal"
+    data-bs-target="#addDevice"
+  >
+    + Add a device
+  </button>
+</div>
+
 <div class="card mb-3">
   <div class="card-body">
     <table class="table">
       <thead>
         <tr>
+          <th scope="col"></th>
           <th scope="col">Device Name</th>
           <th scope="col">Description</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let device of devices">
+          <td scope="row">
+            <div class="dropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+          </td>
           <td scope="row">{{ device.name }}</td>
-          <td>{{ device.description }}</td>
+          <td scope="row">{{ device.description }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<button
-  type="button"
-  class="btn btn-primary"
-  data-toggle="modal"
-  data-target="#exampleModal"
->
-  + Add a device
-</button>
-
 <div
   class="modal fade"
-  id="exampleModal"
+  id="addDevice"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
   tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
+  aria-labelledby="addDeviceLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">...</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+  <form [formGroup]="addDeviceForm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="addDeviceLabel">Add a device</h3>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input
+              id="name"
+              formControlName="name"
+              class="form-control rounnded-4"
+              type="text"
+              placeholder=""
+              required
+            />
+            <label for="name">Device Name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              id="description"
+              formControlName="description"
+              class="form-control rounnded-4"
+              type="text"
+              placeholder=""
+            />
+            <label for="description">Description (optional)</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <form (ngSubmit)="onSubmit()">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Add
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
