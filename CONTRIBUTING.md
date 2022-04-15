@@ -70,9 +70,9 @@ Use Docker Compose to bring up the container. Note that with this method, instal
 docker-compose up
 ```
 
-This will host the server on http://127.0.0.1:8000 with Django in debug mode. It will also mount the host machine's repository within the container. Therefore, changes made to local files on the host will be mirrored within the container. This avoids constant rebuilds after making changes. However, Angular static files will not automatically be rebuilt. Thus, this method is currently impractical for local development.
+This will host the server on http://127.0.0.1:8000. The host machine's repository is mounted within the container, which means changes made to local files on the host will be mirrored within the container. This avoids constant image rebuilds after making changes. However, the web server runs in production mode, so it will not reload modified Python files. Furthermore, Angular static files will not automatically be rebuilt. Thus, this method of running the website is currently impractical for local development.
 
-To forcefully rebuild the container, `--build` can be appended to the above command. To stop the services, use <kbd>Ctrl</kbd> + <kbd>c</kbd> in the terminal.
+To forcefully rebuild the image, `--build` can be appended to the above command. To stop the services, use <kbd>Ctrl</kbd> + <kbd>c</kbd> in the terminal.
 
 [npm]: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/
 [poetry]: https://github.com/python-poetry/poetry/
