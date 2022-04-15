@@ -139,6 +139,7 @@ Q_CLUSTER = {
     "retry": 60,
     "bulk": 10,
     "orm": "default",
+    "catch_up": False,
 }
 
 # Password validation
