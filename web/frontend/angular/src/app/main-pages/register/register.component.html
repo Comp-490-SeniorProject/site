@@ -24,6 +24,9 @@
         Username is required
       </div>
     </div>
+    <div class="row errorstatus">
+      <span>{{ usernameStatus }}</span>
+    </div>
     <p [ngClass]="{'has-error': isSubmitted && formControls.email.errors}">
       <input
         type="email"
@@ -32,6 +35,9 @@
         formControlName="email"
       />
     </p>
+    <div class="row errorstatus">
+      <span>{{ emailStatus }}</span>
+    </div>
     <p
       [ngClass]="{
         'has-error': isSubmitted && formControls.password.errors
@@ -44,6 +50,9 @@
         class="form-control"
       />
     </p>
+    <div class="row errorstatus">
+      <span>{{ passwordStatus }}</span>
+    </div>
     <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
       <div *ngIf="formControls.password.errors.required">
         Password is required
@@ -61,6 +70,9 @@
         class="form-control"
       />
     </p>
+    <div class="row errorstatus">
+      <span>{{ password_confirmStatus }}</span>
+    </div>
     <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
       <div *ngIf="formControls.password.errors.required">
         Confirm Password is required
