@@ -78,3 +78,5 @@ ENV/
 /static_root
 /web/frontend/static
 *.sqlite3
+
+docker-compose.override.yml

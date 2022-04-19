@@ -2,8 +2,31 @@
 *
 
 # Make exceptions for what's needed
-!web
-!LICENSE
-!manage.py
-!poetry.lock
-!pyproject.toml
+!/web/
+!/LICENSE
+!/manage.py
+!/poetry.lock
+!/pyproject.toml
+
+# Explicitly exclude things
+**/node_modules/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Frontend excludes
+/web/frontend/angular/
+/web/frontend/static/
+
+# Frontend exceptions
+!/web/frontend/angular/.browserslistrc
+!/web/frontend/angular/src/
+!/web/frontend/angular/angular.json
+!/web/frontend/angular/extra-webpack.config.js
+!/web/frontend/angular/karma.conf.js
+!/web/frontend/angular/package.json
+!/web/frontend/angular/package-lock.json
+!/web/frontend/angular/tsconfig.app.json
+!/web/frontend/angular/tsconfig.json
+!/web/frontend/angular/tsconfig.spec.json
+!/web/frontend/angular/webpack-stats.json
