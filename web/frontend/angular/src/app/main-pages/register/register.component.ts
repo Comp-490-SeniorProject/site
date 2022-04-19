@@ -46,19 +46,10 @@ export class RegisterComponent implements OnInit {
         this.authService.register(this.authForm.value).subscribe(
             (res: any) => {
                 this.status = "User Created..!"
-                const collection =
-                    document.getElementsByClassName("errorstatus")
-                for (let i = 0; i < collection.length - 1; i++) {
-                    collection[i].classList.add("d-none")
-                }
-                let input = document.getElementsByTagName("input")
-                for (let i = 0; i < input.length - 1; i++) {
-                    input[i].classList.remove("error")
-                }
-                let err = document.getElementById("error")
-                err?.classList.add("d-none")
-                let success = document.getElementById("success")
-                success?.classList.remove("d-none")
+                this.usernameStatus = ""
+                this.passwordStatus = ""
+                this.password_confirmStatus = ""
+                this.emailStatus = ""
                 setTimeout(() => {
                     this.router.navigateByUrl("homepage")
                 }, 3000)
@@ -68,12 +59,6 @@ export class RegisterComponent implements OnInit {
                 this.passwordStatus = error.error["password"]
                 this.password_confirmStatus = error.error["password_confirm"]
                 this.emailStatus = error.error["email"]
-                let input = document.getElementsByTagName("input")
-                for (let i = 0; i < input.length - 1; i++) {
-                    input[i].setAttribute("class", "error form-control")
-                }
-                let err = document.getElementById("error")
-                err?.classList.remove("d-none")
             }
         )
     }

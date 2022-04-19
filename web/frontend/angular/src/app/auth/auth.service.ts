@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core"
 import {User} from "./user"
 import {HttpClient} from "@angular/common/http"
-import {environment} from "src/environments/environment"
 
 @Injectable({
     providedIn: "root",
@@ -19,7 +18,7 @@ export class AuthService {
     }
     public register(userData: User) {
         return this.http.post(
-            environment.baseUrl + "api/accounts/register/",
+            window.location.origin + "/api/accounts/register/",
             userData
         )
     }
