@@ -18,10 +18,12 @@ export class SignInComponent implements OnInit {
 
     authForm!: FormGroup
     isSubmitted = false
+    status: any
+    success: any
 
     ngOnInit() {
         this.authForm = this.formBuilder.group({
-            email: ["", Validators.required],
+            login: ["", Validators.required],
             password: ["", Validators.required],
         })
     }
@@ -35,7 +37,17 @@ export class SignInComponent implements OnInit {
         if (this.authForm.invalid) {
             return
         }
-        this.authService.signIn(this.authForm.value)
-        this.router.navigateByUrl("homepage")
+        this.authService.signIn(this.authForm.value).subscribe(
+            (res: any) => {
+                this.status = ""
+                this.success = "Login Success.."
+                setTimeout(() => {
+                    this.router.navigateByUrl("homepage")
+                }, 3000)
+            },
+            (error) => {
+                this.status = error.error["detail"]
+            }
+        )
     }
 }
