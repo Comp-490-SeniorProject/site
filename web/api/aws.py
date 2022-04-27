@@ -31,10 +31,9 @@ def create_iot_thing(user_id: int, device_id: int):
         thing_group = _create_iot_thing_group(user_id)
 
     # The attributes will be available as variables in the policy.
-    attributes = {"attributes": {"device_id": device_id}}
     thing = iot_client.create_thing(
         thingName=THING_NAME.format(user_id=user_id, device_id=device_id),
-        attributePayload=orjson.dumps(attributes),
+        attributePayload={"attributes": {"device_id": str(device_id)}},
     )
 
     iot_client.add_thing_to_thing_group(
@@ -100,12 +99,14 @@ def _create_iot_thing_group(user_id: int) -> dict:
     use its own topic.
     """
     # Both an attribute and a tag may be redundant, but whatever; doesn't seem to hurt.
-    group_attributes = {"attributes": {"user_id": user_id}}
+    properties = {
+        "thingGroupDescription": f"Group for all devices of user {user_id}.",
+        "attributePayload": {"attributes": {"user_id": str(user_id)}},
+    }
     thing_group = iot_client.create_thing_group(
         thingGroupName=THING_GROUP_NAME.format(user_id=user_id),
-        thingGroupDescription=f"Group for all devices of user {user_id}.",
-        attributes=orjson.dumps(group_attributes),
-        tags=[{"user_id": user_id}],
+        thingGroupProperties=properties,
+        tags=[{"Key": "user_id", "Value": str(user_id)}],
     )
 
     # The account ID could be retrieved with STS's get_caller_identity().
@@ -136,8 +137,8 @@ def _create_iot_thing_group(user_id: int) -> dict:
 
     policy = iot_client.create_policy(
         policyName=POLICY_NAME.format(user_id=user_id),
-        policyDocument=orjson.dumps(policy_doc),
-        tags=[{"user_id": user_id}],
+        policyDocument=orjson.dumps(policy_doc).decode("utf8"),
+        tags=[{"Key": "user_id", "Value": str(user_id)}],
     )
 
     # Attach the policy to the group rather than to the certificate.
