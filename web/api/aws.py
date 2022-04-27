@@ -113,7 +113,11 @@ def _create_iot_thing_group(user_id: int) -> dict:
     # However, parsing an existing ARN avoids an extra API call.
     arn_prefix = ":".join(thing_group["thingGroupArn"].split(":")[:5])
 
-    topic = TOPIC_NAME.format(user_id=user_id, device_id="${iot:Thing.Attributes[device_id]}")
+    topic = TOPIC_NAME.format(
+        user_id=user_id,
+        device_id="${iot:Connection.Thing.Attributes[device_id]}",
+    )
+
     policy_doc = {
         "Version": "2012-10-17",
         "Statement": [
