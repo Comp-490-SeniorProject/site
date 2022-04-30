@@ -1,10 +1,9 @@
 import {Component, OnInit} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
-import {NgForm} from "@angular/forms"
-import {HttpHeaders} from "@angular/common/http"
-import {HttpParams} from "@angular/common/http"
-
-import {from, Observable} from "rxjs"
+//import {NgForm} from "@angular/forms"
+//import {HttpHeaders} from "@angular/common/http"
+//import {HttpParams} from "@angular/common/http"
+//import {from, Observable} from "rxjs"
 import {FormBuilder} from "@angular/forms"
 
 export class Devices {
@@ -52,13 +51,12 @@ export class ManageDevicesComponent implements OnInit {
         }
 
         const deviceInfo = JSON.stringify(this.addDeviceForm.value)
-        console.log(deviceInfo)
+        //console.log(deviceInfo)
 
         this.http
             .post<any[]>(`${this.deviceEndpoint}`, deviceInfo, {headers})
             .subscribe()
         this.addDeviceForm.reset()
-        //close form
         this.http
             .get<any[]>(`${this.deviceEndpoint}`, {
                 headers: {
