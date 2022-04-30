@@ -22,8 +22,10 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.authForm = this.formBuilder.group({
-            email: ["", Validators.required],
+            username: ["", Validators.required],
+            email: [""],
             password: ["", Validators.required],
+            password_confirm: ["", Validators.required],
         })
     }
 
@@ -31,12 +33,33 @@ export class RegisterComponent implements OnInit {
         return this.authForm.controls
     }
 
+    usernameStatus: any
+    passwordStatus: any
+    password_confirmStatus: any
+    emailStatus: any
+    status: any
     register() {
         this.isSubmitted = true
         if (this.authForm.invalid) {
             return
         }
-        this.authService.register(this.authForm.value)
-        this.router.navigateByUrl("homepage")
+        this.authService.register(this.authForm.value).subscribe(
+            (res: any) => {
+                this.status = "User Created..!"
+                this.usernameStatus = ""
+                this.passwordStatus = ""
+                this.password_confirmStatus = ""
+                this.emailStatus = ""
+                setTimeout(() => {
+                    this.router.navigateByUrl("homepage")
+                }, 3000)
+            },
+            (error) => {
+                this.usernameStatus = error.error["username"]
+                this.passwordStatus = error.error["password"]
+                this.password_confirmStatus = error.error["password_confirm"]
+                this.emailStatus = error.error["email"]
+            }
+        )
     }
 }

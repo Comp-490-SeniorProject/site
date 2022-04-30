@@ -1,10 +1,12 @@
 import {Injectable} from "@angular/core"
 import {User} from "./user"
+import {HttpClient} from "@angular/common/http"
+
 @Injectable({
     providedIn: "root",
 })
 export class AuthService {
-    constructor() {}
+    constructor(private http: HttpClient) {}
     public signIn(userData: User) {
         localStorage.setItem("ACCESS_TOKEN", "access_token")
     }
@@ -15,6 +17,9 @@ export class AuthService {
         localStorage.removeItem("ACCESS_TOKEN")
     }
     public register(userData: User) {
-        //TODO
+        return this.http.post(
+            window.location.origin + "/api/accounts/register/",
+            userData
+        )
     }
 }
