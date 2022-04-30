@@ -21,7 +21,7 @@ export class Devices {
     styleUrls: ["./manage-devices.component.scss"],
 })
 export class ManageDevicesComponent implements OnInit {
-    url = "api/devices/"
+    deviceEndpoint = "api/devices/"
 
     devices: Devices[] | undefined
 
@@ -31,7 +31,7 @@ export class ManageDevicesComponent implements OnInit {
     })
 
     constructor(private http: HttpClient, private formBuilder: FormBuilder) {
-        http.get<any[]>(`${this.url}`, {
+        http.get<any[]>(`${this.deviceEndpoint}`, {
             headers: {
                 Accept: "application/json",
             },
@@ -54,11 +54,13 @@ export class ManageDevicesComponent implements OnInit {
         const deviceInfo = JSON.stringify(this.addDeviceForm.value)
         console.log(deviceInfo)
 
-        this.http.post<any[]>(`${this.url}`, deviceInfo, {headers}).subscribe()
+        this.http
+            .post<any[]>(`${this.deviceEndpoint}`, deviceInfo, {headers})
+            .subscribe()
         this.addDeviceForm.reset()
         //close form
         this.http
-            .get<any[]>(`${this.url}`, {
+            .get<any[]>(`${this.deviceEndpoint}`, {
                 headers: {
                     Accept: "application/json",
                 },
