@@ -5,7 +5,7 @@ import orjson
 
 from web.api.models import Parameter, TestHistory, TestStatus
 
-__all__ = ("create_iot_thing", "publish_test")
+__all__ = ("create_iot_thing", "publish_test", "iot_client", "iot_data_client")
 
 TOPIC_NAME = "ap/{user_id}/{device_id}"
 THING_GROUP_NAME = "ap_thing_group_{user_id}"
@@ -17,7 +17,7 @@ iot_client = boto3.client("iot")
 iot_data_client = boto3.client("iot-data")
 
 
-def create_iot_thing(user_id: int, device_id: int):
+def create_iot_thing(user_id: int, device_id: int) -> dict:
     """Create a new IoT Thing for the given user and device.
 
     Each user has a separate IoT Thing group for their devices.
@@ -48,6 +48,10 @@ def create_iot_thing(user_id: int, device_id: int):
         thingName=thing["thingName"],
         principal=keys_and_cert["certificateArn"],
     )
+
+    endpoint = iot_client.describe_endpoint(endpointType="iot:Data-ATS")
+
+    return endpoint | keys_and_cert
 
 
 def publish_test(parameter_id: int):
