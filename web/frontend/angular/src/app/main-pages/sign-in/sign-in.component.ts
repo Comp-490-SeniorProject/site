@@ -20,6 +20,7 @@ export class SignInComponent implements OnInit {
     isSubmitted = false
     status: any
     success: any
+    token: any
 
     ngOnInit() {
         this.authForm = this.formBuilder.group({
@@ -39,6 +40,7 @@ export class SignInComponent implements OnInit {
         }
         this.authService.signIn(this.authForm.value).subscribe(
             (res: any) => {
+                this.token = document.cookie.slice(10)
                 this.status = ""
                 this.success = "Login Success.."
                 setTimeout(() => {

@@ -42,6 +42,8 @@ import {SettingsHeaderComponent} from "./layouts/shared/settings-header/settings
 import {HashLocationStrategy} from "@angular/common"
 import {LocationStrategy} from "@angular/common"
 import {HttpClientModule} from "@angular/common/http"
+import {AuthInterceptor} from "./auth/auth.interceptor"
+import {HTTP_INTERCEPTORS} from "@angular/common/http"
 
 @NgModule({
     declarations: [
@@ -81,7 +83,9 @@ import {HttpClientModule} from "@angular/common/http"
         HttpClientModule,
     ],
 
-    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    ],
 
     bootstrap: [AppComponent],
 })
