@@ -1,11 +1,31 @@
 <div class="login">
   <h2 class="login-header">Log in</h2>
   <form [formGroup]="authForm" class="login-container" (ngSubmit)="signIn()">
-    <p [ngClass]="{'has-error': isSubmitted && formControls.email.errors}">
-      <input type="email" placeholder="Email" formControlName="email" />
+    <span class="text-danger text-sm ml-3">{{ status }}</span>
+    <span class="text-success text-sm">{{ success }}</span>
+    <p [ngClass]="{'has-error': isSubmitted && formControls.login.errors}">
+      <input
+        type="text"
+        placeholder="Username Or Email"
+        formControlName="login"
+        class="form-control"
+        *ngIf="!status"
+      />
+      <input
+        type="text"
+        placeholder="Username Or Email"
+        formControlName="login"
+        class="form-control error"
+        *ngIf="status"
+      />
     </p>
-    <div *ngIf="isSubmitted && formControls.email.errors" class="help-block">
-      <div *ngIf="formControls.email.errors.required">Email is required</div>
+    <div *ngIf="isSubmitted && formControls.login.errors" class="help-block">
+      <div
+        *ngIf="formControls.login.errors.required"
+        class="text-danger ml-3 text-sm"
+      >
+        Username / Email is required
+      </div>
     </div>
     <p
       [ngClass]="{
@@ -16,10 +36,22 @@
         type="password"
         placeholder="Password"
         formControlName="password"
+        class="form-control"
+        *ngIf="!status"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        class="form-control error"
+        *ngIf="status"
       />
     </p>
     <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
-      <div *ngIf="formControls.password.errors.required">
+      <div
+        *ngIf="formControls.password.errors.required"
+        class="text-danger ml-3 text-sm"
+      >
         Password is required
       </div>
     </div>
