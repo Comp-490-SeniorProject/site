@@ -2,6 +2,7 @@ import {NgModule} from "@angular/core"
 import {BrowserModule} from "@angular/platform-browser"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {AppRoutingModule} from "./app-routing.module"
+import {HttpClientModule} from "@angular/common/http"
 
 import {AppComponent} from "./app.component"
 import {DashboardLayoutComponent} from "./layouts/dashboard-layout/dashboard-layout.component"
@@ -41,7 +42,9 @@ import {SettingsHeaderComponent} from "./layouts/shared/settings-header/settings
 
 import {HashLocationStrategy} from "@angular/common"
 import {LocationStrategy} from "@angular/common"
-import {HttpClientModule} from "@angular/common/http"
+
+import {HttpClientXsrfModule} from "@angular/common/http"
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap"
 
 @NgModule({
     declarations: [
@@ -76,9 +79,14 @@ import {HttpClientModule} from "@angular/common/http"
     imports: [
         BrowserModule,
         AppRoutingModule,
+        NgbModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: "csrftoken",
+            headerName: "X-CSRFToken",
+        }),
     ],
 
     providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
