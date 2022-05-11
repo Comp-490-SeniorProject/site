@@ -54,6 +54,15 @@ def create_iot_thing(user_id: int, device_id: int) -> dict:
     return endpoint | keys_and_cert
 
 
+def delete_iot_thing(user_id: int, device_id: int):
+    """Delete an IoT Thing corresponding to the given user and device.
+
+    The certificate is not deleted, though it's useless anyway since it's no longer attached to
+    a thing.
+    """
+    iot_client.delete_thing(thingName=THING_NAME.format(user_id=user_id, device_id=device_id))
+
+
 def publish_test(parameter_id: int):
     """Publish a new test for the given parameter."""
     parameter = Parameter.objects.get(pk=parameter_id)
