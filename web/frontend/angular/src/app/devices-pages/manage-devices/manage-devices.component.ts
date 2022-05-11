@@ -1,22 +1,9 @@
 import {Component, OnInit} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
 import {FormBuilder} from "@angular/forms"
-
-export interface Device {
-    readonly id: number
-    readonly name: string
-    readonly description: string
-}
-
-interface NewDevice extends Device {
-    aws: {
-        readonly endpointAddress: string
-        readonly certificateArn: string
-        readonly certificateId: string
-        readonly certificatePem: string
-        readonly keyPair: {PublicKey: string; PrivateKey: string}
-    }
-}
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap"
+import {Device, NewDevice} from "./models"
+import {DeviceInfoModalContent} from "./device-info.component"
 
 @Component({
     selector: "app-manage-devices",
@@ -27,14 +14,17 @@ export class ManageDevicesComponent implements OnInit {
     deviceEndpoint = "api/devices/"
 
     devices: Device[] = []
-    newDevice?: NewDevice
 
     addDeviceForm = this.formBuilder.group({
         name: "",
         description: "",
     })
 
-    constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+    constructor(
+        private http: HttpClient,
+        private formBuilder: FormBuilder,
+        private modalService: NgbModal
+    ) {
         http.get<Device[]>(this.deviceEndpoint).subscribe(
             (devices: Device[]) => {
                 this.devices = devices
@@ -51,7 +41,12 @@ export class ManageDevicesComponent implements OnInit {
             .subscribe(
                 (device: NewDevice) => {
                     this.devices.push(device)
-                    this.newDevice = device
+
+                    const modal = this.modalService.open(
+                        DeviceInfoModalContent,
+                        {size: "lg"}
+                    )
+                    modal.componentInstance.newDevice = device
                 },
                 (error) => console.error(error)
             )
