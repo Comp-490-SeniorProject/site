@@ -1,3 +1,4 @@
+from botocore.exceptions import ClientError
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
@@ -27,7 +28,7 @@ class DeviceViewSet(viewsets.ModelViewSet):
             # Broad except clause since the Device instance is useless if AWS fails for any reason.
             device.delete()
 
-            if isinstance(e, aws.iot_client.ThrottlingException):
+            if isinstance(e, ClientError) and e.response["Error"]["Code"] == "ThrottlingException":
                 return Response(status=status.HTTP_429_TOO_MANY_REQUESTS)
             else:
                 raise

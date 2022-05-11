@@ -2,6 +2,7 @@ import logging
 
 import boto3
 import orjson
+from botocore.exceptions import ClientError
 
 from web.api.models import Parameter, TestHistory, TestStatus
 
@@ -73,7 +74,7 @@ def publish_test(parameter_id: int):
     try:
         # TODO: publish to the topic specific to the device ID.
         response = iot_data_client.publish(topic=topic, payload=payload)
-    except iot_data_client.exceptions.ClientError:
+    except ClientError:
         log.exception(
             "Failed to publish test %d for sensor %d on device %d.",
             test_history.id,
