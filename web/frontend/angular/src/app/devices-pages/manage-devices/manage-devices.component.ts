@@ -27,8 +27,8 @@ export class ManageDevicesComponent implements OnInit {
 
     constructor(private http: HttpClient, private formBuilder: FormBuilder) {
         http.get<Device[]>(this.deviceEndpoint).subscribe(
-            (result: Device[]) => {
-                this.devices = result
+            (devices: Device[]) => {
+                this.devices = devices
             },
             (error) => console.error(error)
         )
@@ -39,13 +39,12 @@ export class ManageDevicesComponent implements OnInit {
     onSubmit() {
         this.http
             .post<Device>(this.deviceEndpoint, this.addDeviceForm.value)
-            .subscribe()
+            .subscribe(
+                (device: Device) => {
+                    this.devices.push(device)
+                },
+                (error) => console.error(error)
+            )
         this.addDeviceForm.reset()
-        this.http.get<Device[]>(this.deviceEndpoint).subscribe(
-            (result: Device[]) => {
-                this.devices = result
-            },
-            (error) => console.error(error)
-        )
     }
 }
