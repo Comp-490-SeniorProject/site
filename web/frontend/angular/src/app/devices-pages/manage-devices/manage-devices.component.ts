@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
 import {FormBuilder} from "@angular/forms"
 
-export class Devices {
+export class Device {
     constructor(
         public id: number,
         public name: string,
@@ -18,7 +18,7 @@ export class Devices {
 export class ManageDevicesComponent implements OnInit {
     deviceEndpoint = "api/devices/"
 
-    devices: Devices[] | undefined
+    devices: Device[] | undefined
 
     addDeviceForm = this.formBuilder.group({
         name: "",
@@ -26,8 +26,8 @@ export class ManageDevicesComponent implements OnInit {
     })
 
     constructor(private http: HttpClient, private formBuilder: FormBuilder) {
-        http.get<any[]>(this.deviceEndpoint).subscribe(
-            (result) => {
+        http.get<Device[]>(this.deviceEndpoint).subscribe(
+            (result: Device[]) => {
                 this.devices = result
             },
             (error) => console.error(error)
@@ -38,11 +38,11 @@ export class ManageDevicesComponent implements OnInit {
 
     onSubmit() {
         this.http
-            .post<any[]>(this.deviceEndpoint, this.addDeviceForm.value)
+            .post<Device>(this.deviceEndpoint, this.addDeviceForm.value)
             .subscribe()
         this.addDeviceForm.reset()
-        this.http.get<any[]>(this.deviceEndpoint).subscribe(
-            (result) => {
+        this.http.get<Device[]>(this.deviceEndpoint).subscribe(
+            (result: Device[]) => {
                 this.devices = result
             },
             (error) => console.error(error)
