@@ -10,7 +10,7 @@ __all__ = ("create_iot_thing", "publish_test", "iot_client", "iot_data_client")
 
 TOPIC_NAME = "ap/{user_id}/{device_id}"
 THING_GROUP_NAME = "ap_thing_group_{user_id}"
-THING_NAME = "ap_thing_{user_id}"
+THING_NAME = "ap_thing_{user_id}_{device_id}"
 POLICY_NAME = f"{THING_GROUP_NAME}_policy"
 
 log = logging.getLogger(__name__)
