@@ -26,9 +26,7 @@ export class ManageDevicesComponent implements OnInit {
     })
 
     constructor(private http: HttpClient, private formBuilder: FormBuilder) {
-        http.get<any[]>(`${this.deviceEndpoint}`, {
-            headers: {},
-        }).subscribe(
+        http.get<any[]>(`${this.deviceEndpoint}`).subscribe(
             (result) => {
                 this.devices = result
             },
@@ -39,25 +37,15 @@ export class ManageDevicesComponent implements OnInit {
     ngOnInit(): void {}
 
     onSubmit() {
-        const headers = {
-            "Content-Type": "application/json",
-        }
-
-        const deviceInfo = JSON.stringify(this.addDeviceForm.value)
-
         this.http
-            .post<any[]>(`${this.deviceEndpoint}`, deviceInfo, {headers})
+            .post<any[]>(`${this.deviceEndpoint}`, this.addDeviceForm.value)
             .subscribe()
         this.addDeviceForm.reset()
-        this.http
-            .get<any[]>(`${this.deviceEndpoint}`, {
-                headers: {},
-            })
-            .subscribe(
-                (result) => {
-                    this.devices = result
-                },
-                (error) => console.error(error)
-            )
+        this.http.get<any[]>(`${this.deviceEndpoint}`).subscribe(
+            (result) => {
+                this.devices = result
+            },
+            (error) => console.error(error)
+        )
     }
 }
