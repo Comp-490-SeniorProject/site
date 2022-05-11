@@ -41,9 +41,7 @@ import {SettingsHeaderComponent} from "./layouts/shared/settings-header/settings
 
 import {HashLocationStrategy} from "@angular/common"
 import {LocationStrategy} from "@angular/common"
-import {HttpClientModule} from "@angular/common/http"
-import {AuthInterceptor} from "./auth/auth.interceptor"
-import {HTTP_INTERCEPTORS} from "@angular/common/http"
+import {HttpClientModule, HttpClientXsrfModule} from "@angular/common/http"
 
 @NgModule({
     declarations: [
@@ -81,12 +79,13 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http"
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: "csrftoken",
+            headerName: "X-CSRFToken",
+        }),
     ],
 
-    providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
-        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    ],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
 
     bootstrap: [AppComponent],
 })
