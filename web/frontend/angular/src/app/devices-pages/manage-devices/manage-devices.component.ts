@@ -26,7 +26,7 @@ export class ManageDevicesComponent implements OnInit {
     })
 
     constructor(private http: HttpClient, private formBuilder: FormBuilder) {
-        http.get<any[]>(`${this.deviceEndpoint}`).subscribe(
+        http.get<any[]>(this.deviceEndpoint).subscribe(
             (result) => {
                 this.devices = result
             },
@@ -38,10 +38,10 @@ export class ManageDevicesComponent implements OnInit {
 
     onSubmit() {
         this.http
-            .post<any[]>(`${this.deviceEndpoint}`, this.addDeviceForm.value)
+            .post<any[]>(this.deviceEndpoint, this.addDeviceForm.value)
             .subscribe()
         this.addDeviceForm.reset()
-        this.http.get<any[]>(`${this.deviceEndpoint}`).subscribe(
+        this.http.get<any[]>(this.deviceEndpoint).subscribe(
             (result) => {
                 this.devices = result
             },
