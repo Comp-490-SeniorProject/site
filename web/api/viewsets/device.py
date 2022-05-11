@@ -32,8 +32,11 @@ class DeviceViewSet(viewsets.ModelViewSet):
             else:
                 raise
 
+        # Can't use union yet: see https://github.com/encode/django-rest-framework/pull/8302
+        data = {**serializer.data, **aws_data}
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data | aws_data, status=status.HTTP_201_CREATED, headers=headers)
+
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
     def destroy(self, request, *args, **kwargs):
         device = self.get_object()
