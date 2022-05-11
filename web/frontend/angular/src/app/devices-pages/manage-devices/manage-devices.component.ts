@@ -27,6 +27,7 @@ export class ManageDevicesComponent implements OnInit {
     deviceEndpoint = "api/devices/"
 
     devices: Device[] = []
+    newDevice?: NewDevice
 
     addDeviceForm = this.formBuilder.group({
         name: "",
@@ -50,6 +51,7 @@ export class ManageDevicesComponent implements OnInit {
             .subscribe(
                 (device: NewDevice) => {
                     this.devices.push(device)
+                    this.newDevice = device
                 },
                 (error) => console.error(error)
             )
