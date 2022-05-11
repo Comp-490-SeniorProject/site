@@ -18,7 +18,7 @@ export class Device {
 export class ManageDevicesComponent implements OnInit {
     deviceEndpoint = "api/devices/"
 
-    devices: Device[] | undefined
+    devices: Device[] = []
 
     addDeviceForm = this.formBuilder.group({
         name: "",
