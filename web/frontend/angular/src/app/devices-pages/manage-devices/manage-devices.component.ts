@@ -1,9 +1,5 @@
 import {Component, OnInit} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
-//import {NgForm} from "@angular/forms"
-//import {HttpHeaders} from "@angular/common/http"
-//import {HttpParams} from "@angular/common/http"
-//import {from, Observable} from "rxjs"
 import {FormBuilder} from "@angular/forms"
 
 export class Devices {
@@ -31,9 +27,7 @@ export class ManageDevicesComponent implements OnInit {
 
     constructor(private http: HttpClient, private formBuilder: FormBuilder) {
         http.get<any[]>(`${this.deviceEndpoint}`, {
-            headers: {
-                Accept: "application/json",
-            },
+            headers: {},
         }).subscribe(
             (result) => {
                 this.devices = result
@@ -46,12 +40,10 @@ export class ManageDevicesComponent implements OnInit {
 
     onSubmit() {
         const headers = {
-            Accept: "application/json",
             "Content-Type": "application/json",
         }
 
         const deviceInfo = JSON.stringify(this.addDeviceForm.value)
-        //console.log(deviceInfo)
 
         this.http
             .post<any[]>(`${this.deviceEndpoint}`, deviceInfo, {headers})
@@ -59,9 +51,7 @@ export class ManageDevicesComponent implements OnInit {
         this.addDeviceForm.reset()
         this.http
             .get<any[]>(`${this.deviceEndpoint}`, {
-                headers: {
-                    Accept: "application/json",
-                },
+                headers: {},
             })
             .subscribe(
                 (result) => {

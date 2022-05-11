@@ -42,7 +42,6 @@ import {SettingsHeaderComponent} from "./layouts/shared/settings-header/settings
 
 import {HashLocationStrategy} from "@angular/common"
 import {LocationStrategy} from "@angular/common"
-//import {HttpClientModule} from "@angular/common/http"
 
 import {HttpClientXsrfModule} from "@angular/common/http"
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap"
