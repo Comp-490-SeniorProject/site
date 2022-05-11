@@ -2,12 +2,20 @@ import {Component, OnInit} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
 import {FormBuilder} from "@angular/forms"
 
-export class Device {
-    constructor(
-        public id: number,
-        public name: string,
-        public description: string
-    ) {}
+export interface Device {
+    readonly id: number
+    readonly name: string
+    readonly description: string
+}
+
+interface NewDevice extends Device {
+    aws: {
+        readonly endpointAddress: string
+        readonly certificateArn: string
+        readonly certificateId: string
+        readonly certificatePem: string
+        readonly keyPair: {PublicKey: string; PrivateKey: string}
+    }
 }
 
 @Component({
@@ -38,9 +46,9 @@ export class ManageDevicesComponent implements OnInit {
 
     onSubmit() {
         this.http
-            .post<Device>(this.deviceEndpoint, this.addDeviceForm.value)
+            .post<NewDevice>(this.deviceEndpoint, this.addDeviceForm.value)
             .subscribe(
-                (device: Device) => {
+                (device: NewDevice) => {
                     this.devices.push(device)
                 },
                 (error) => console.error(error)
