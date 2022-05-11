@@ -5,16 +5,12 @@ from web.utils.fields import NullEmailField
 
 def set_blank_email_to_null(apps, _):
     user_model = apps.get_model("api", "User")
-    for user in user_model.objects.filter(email__exact=""):
-        user.email = None
-        user.save()
+    user_model.objects.filter(email="").update(email=None)
 
 
 def set_null_email_to_blank(apps, _):
     user_model = apps.get_model("api", "User")
-    for user in user_model.objects.filter(email__isnull=True):
-        user.email = ""
-        user.save()
+    user_model.objects.filter(email__isnull=True).update(email="")
 
 
 class Migration(migrations.Migration):

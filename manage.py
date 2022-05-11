@@ -58,8 +58,12 @@ def run_ng_build():
     )
 
 
-def run_dev_server():
-    """Simultaneously run the Django development server and ng build with --watch."""
+def run_dev_server(cluster):
+    """
+    Simultaneously run the Django development server and ng build with --watch.
+
+    `cluster` is the Django Q cluster to start concurrently with the server.
+    """
     # Avoid spawning a new node node process every time Django reloads due to a file change.
     if os.environ.get("RUN_MAIN") != "true":
         node_process = run_ng_build()
@@ -68,17 +72,12 @@ def run_dev_server():
 
     try:
         # TODO: terminate runserver if ng build crashes?
+        cluster.start()
         call_command("runserver", "0.0.0.0:8000")
-    except Exception:
-        # If Django fails, terminate Angular's build too.
+    finally:
+        cluster.stop()
         if node_process:
             node_process.terminate()
-        raise
-    else:
-        # Wait for the process so that signals are forwarded if this wait is interrupted.
-        # In practice, this may be unreachable since Django won't stop unless an exception happens.
-        if node_process:
-            node_process.wait()
 
 
 def run_server():
@@ -94,8 +93,13 @@ def run_server():
 
     print("Starting server.")
 
+    # The cluster is responsible for executing scheduled tasks.
+    from django_q.cluster import Cluster
+
+    cluster = Cluster()
+
     if settings.DEBUG:
-        run_dev_server()
+        run_dev_server(cluster)
     else:
         import gunicorn.app.wsgiapp
 
@@ -105,10 +109,18 @@ def run_server():
             "web.wsgi:application",
             "-b",
             "0.0.0.0:8000",
+            "--access-logfile",
+            "-",
+            "--error-logfile",
+            "-",
             "--preload",
         ]
 
-        gunicorn.app.wsgiapp.run()
+        try:
+            cluster.start()
+            gunicorn.app.wsgiapp.run()
+        finally:
+            cluster.stop()
 
 
 def main():

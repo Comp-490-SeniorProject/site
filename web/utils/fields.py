@@ -1,8 +1,9 @@
-import orjson
 from django import forms
 from django.contrib.postgres.fields import ArrayField
 from django.core import exceptions
 from django.db import models
+
+from web.utils import json
 
 __all__ = ("ChoiceArrayField", "NullEmailField")
 
@@ -53,8 +54,8 @@ class OrjsonField(models.JSONField):
     """A JSONField which uses orjson for encoding/decoding."""
 
     def __init__(self, verbose_name=None, name=None, **kwargs):
-        kwargs["encoder"] = orjson.dumps
-        kwargs["decoder"] = orjson.loads
+        kwargs["encoder"] = json.OrjsonEncoder
+        kwargs["decoder"] = json.OrjsonDecoder
         super().__init__(verbose_name, name, **kwargs)
 
 

@@ -1,23 +1,25 @@
+import pgtrigger
 from django.db import models
-from django.utils import timezone
+from django_q.models import Schedule
 
-from .device import Device
+from web.utils.triggers import ProtectColumn
+
+from .parameter import Parameter
 
 
+@pgtrigger.register(ProtectColumn(name="api_test_protect_parameter_update", column="parameter"))
 class Test(models.Model):
 
     name = models.TextField(help_text="A user-friendly string that names the test.")
     description = models.TextField(blank=True, help_text="A description of the test.")
-    created_at = models.DateTimeField(
-        default=timezone.now, help_text="The date and time of the creation of this test."
+    parameter = models.OneToOneField(
+        Parameter, on_delete=models.CASCADE, help_text="The parameter to test."
     )
-    frequency = models.DurationField(help_text="The frequency of execution for the test.")
-    priority = models.PositiveSmallIntegerField(
-        unique=True,
-        help_text="The test's execution priority. "
-        "Used to break ties when multiple tests of a device are scheduled at the same time. "
-        "A smaller value indicates a higher priority.",
+    schedule = models.OneToOneField(
+        Schedule, on_delete=models.CASCADE, help_text="The Django Q schedule for the test."
     )
-    device = models.ForeignKey(
-        Device, on_delete=models.CASCADE, help_text="The device on which the test will execute."
-    )
+
+    def delete(self, *args, **kwargs):
+        """Delete the Schedule when the Test is deleted."""
+        super().delete(*args, **kwargs)
+        self.schedule.delete()

@@ -84,6 +84,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http"
     ],
 
     providers: [
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     ],
 

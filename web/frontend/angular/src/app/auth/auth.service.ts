@@ -31,6 +31,9 @@ export class AuthService {
         localStorage.removeItem("ACCESS_TOKEN")
     }
     public register(userData: User) {
-        //TODO
+        return this.http.post(
+            window.location.origin + "/api/accounts/register/",
+            userData
+        )
     }
 }
