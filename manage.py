@@ -42,7 +42,7 @@ def run_ng_build():
         )
 
     angular_root = (settings.BASE_DIR / "web" / "frontend" / "angular").resolve(strict=True)
-    ng = angular_root / "node_modules" / "@angular" / "cli" / "bin" / "ng"
+    ng = angular_root / "node_modules" / "@angular" / "cli" / "bin" / "ng.js"
 
     try:
         ng.resolve(strict=True)
