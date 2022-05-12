@@ -68,7 +68,7 @@ def publish_test(parameter_id: int):
     """Publish a new test for the given parameter."""
     parameter = Parameter.objects.get(pk=parameter_id)
     test_history = TestHistory.objects.create(test=parameter.test)
-    payload = orjson.dumps(dict(test_history_id=test_history.id, sensor_id=parameter.sensor_id))
+    payload = f"<{test_history.id}, {parameter.sensor_id}>"
     topic = TOPIC_NAME.format(user_id=parameter.device_id, device_id=parameter.sensor_id)
 
     try:
