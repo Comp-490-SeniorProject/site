@@ -1,14 +1,9 @@
 import {Component, OnInit} from "@angular/core"
 import {HttpClient} from "@angular/common/http"
 import {FormBuilder} from "@angular/forms"
-
-export class Device {
-    constructor(
-        public id: number,
-        public name: string,
-        public description: string
-    ) {}
-}
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap"
+import {Device, NewDevice} from "./models"
+import {DeviceInfoModalContent} from "./device-info.component"
 
 @Component({
     selector: "app-manage-devices",
@@ -25,7 +20,11 @@ export class ManageDevicesComponent implements OnInit {
         description: "",
     })
 
-    constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+    constructor(
+        private http: HttpClient,
+        private formBuilder: FormBuilder,
+        private modalService: NgbModal
+    ) {
         http.get<Device[]>(this.deviceEndpoint).subscribe(
             (devices: Device[]) => {
                 this.devices = devices
@@ -38,10 +37,16 @@ export class ManageDevicesComponent implements OnInit {
 
     onSubmit() {
         this.http
-            .post<Device>(this.deviceEndpoint, this.addDeviceForm.value)
+            .post<NewDevice>(this.deviceEndpoint, this.addDeviceForm.value)
             .subscribe(
-                (device: Device) => {
+                (device: NewDevice) => {
                     this.devices.push(device)
+
+                    const modal = this.modalService.open(
+                        DeviceInfoModalContent,
+                        {size: "lg"}
+                    )
+                    modal.componentInstance.newDevice = device
                 },
                 (error) => console.error(error)
             )

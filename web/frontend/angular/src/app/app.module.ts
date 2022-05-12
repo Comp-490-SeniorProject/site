@@ -25,6 +25,7 @@ import {SummaryComponent} from "./dashboard-pages/summary/summary.component"
 
 import {DeviceOverviewComponent} from "./devices-pages/device-overview/device-overview.component"
 import {ManageDevicesComponent} from "./devices-pages/manage-devices/manage-devices.component"
+import {DeviceInfoModalContent} from "./devices-pages/manage-devices/device-info.component"
 
 import {HomeComponent} from "./main-pages/home/home.component"
 
@@ -66,6 +67,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap"
         SummaryComponent,
         DeviceOverviewComponent,
         ManageDevicesComponent,
+        DeviceInfoModalContent,
         HomeComponent,
         RegisterComponent,
         SignInComponent,
